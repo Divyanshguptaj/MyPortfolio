@@ -1,56 +1,341 @@
-import React from 'react'
+import React, { useState } from "react";
+import Academix from "../../assets/MyProject/Academix.png";
+import RhythmNest from "../../assets/MyProject/MusicMaster.png";
+import Techfest from "../../assets/MyProject/Techfest.png";
 
-const ProjectSection = () => {
+const Projects = () => {
+  const [hoveredProject, setHoveredProject] = useState(null);
+
+  const projects = [
+    {
+      id: 1,
+      title: "Academix – Student Management Platform",
+      description:
+        "A modern, responsive web platform designed to simplify academic management for students and faculty. Features include course tracking, assignment management, grade visualization, and secure authentication. Built with a clean UI/UX for intuitive navigation and optimized performance.",
+      image: `${Academix}`,
+      vercelLink: "https://academix-sigma.vercel.app",
+      githubLink: "https://github.com/Divyanshguptaj/academix",
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Tailwind CSS",
+        "JWT Auth",
+        "REST API",
+      ],
+      category: "Full Stack",
+      gradient: "from-indigo-600 via-blue-500 to-cyan-500",
+      featured: true,
+    },
+    {
+      id: 2,
+      title: "RhythmNest – Music Discovery & Visualization",
+      description:
+        "An engaging, interactive music application built with Next.js, offering users the ability to explore trending tracks, visualize beats in real time, and create personalized playlists. Integrates multiple music APIs for fetching detailed song metadata, streaming previews, and generating dynamic waveform animations. Designed with responsive layouts, fast load times, and smooth UI transitions for an immersive listening experience.",
+      image: `${RhythmNest}`, // Replace with actual screenshot URL
+      vercelLink: "https://music-master-hazel.vercel.app/",
+      githubLink: "https://github.com/Divyanshguptaj/RhythmNest",
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Music API Integration",
+        "SSR / SSG",
+        "Responsive Design",
+        "Git",
+      ],
+      category: "Frontend",
+      gradient: "from-teal-500 via-blue-500 to-indigo-500",
+      featured: false,
+    },
+    {
+      id: 3,
+      title: "College Techfest Website",
+      description:
+        "A visually appealing and mobile-friendly platform developed to showcase and manage my college’s first-ever tech festival. Includes sections for event categories, schedules, speaker profiles, and sponsors, alongside an interactive contact form. Emphasizes accessibility, optimized performance, and modern design with subtle animations. Served as the central hub for participants and organizers, enhancing engagement and streamlining communication before and during the event.",
+      image: `${Techfest}`,
+      vercelLink: "https://college-techfest-eta.vercel.app",
+      githubLink: "https://github.com/Divyanshguptaj/College-Techfest",
+      technologies: [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Responsive Design",
+        "Flexbox",
+        "CSS Grid",
+        "UI Animations",
+        "Accessibility",
+        "Git",
+        "Performance Optimization",
+      ],
+      category: "Frontend",
+      gradient: "from-indigo-500 via-purple-500 to-pink-500",
+      featured: false,
+    },
+  ];
+
   return (
-    <div className="bg-gray-200/50 py-16 px-4 md:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-red-500 font-bold">
-            Projects
-          </h2>
-        </div>
-
-        <div className="flex justify-center">
-          <div className="relative w-full max-w-4xl h-80 md:h-96 lg:h-[30rem] bg-gray-800 rounded-lg overflow-hidden shadow-2xl">
-            {/* Project Background Image Placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-50"></div>
-            
-            {/* Project Content */}
-            <div className="relative z-10 p-8 md:p-12 h-full flex flex-col justify-center">
-              {/* Technology Icons */}
-              <div className="flex gap-4 mb-6">
-                <div className="w-12 h-12 bg-orange-500 rounded flex items-center justify-center text-white font-bold text-sm">
-                  HTML
-                </div>
-                <div className="w-12 h-12 bg-blue-500 rounded flex items-center justify-center text-white font-bold text-sm">
-                  CSS
-                </div>
-                <div className="w-12 h-12 bg-yellow-500 rounded flex items-center justify-center text-black font-bold text-sm">
-                  JS
-                </div>
-              </div>
-
-              {/* Project Details */}
-              <div className="text-white max-w-lg">
-                <h3 className="text-2xl md:text-3xl font-semibold mb-4">
-                  Mobile Repair Shop
-                </h3>
-                <p className="text-lg md:text-xl mb-8 opacity-90">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, nulla.
-                </p>
-                
-                <button className="group relative px-8 py-3 bg-transparent border-none cursor-pointer">
-                  <span className="relative z-10 text-gray-100 font-medium text-base whitespace-nowrap">
-                    View Project
-                  </span>
-                  <div className="absolute bottom-0 right-0 w-full h-full bg-[#28282d] rounded-lg transition-all duration-400 group-hover:translate-x-[5%] group-hover:translate-y-[20%] group-hover:w-[110%] group-hover:h-[110%] -z-10"></div>
-                  <div className="absolute translate-x-2.5 translate-y-2.5 w-9 h-9 bg-white/10 backdrop-blur-sm rounded-full transition-all duration-400 group-hover:rounded-lg group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
-                </button>
-              </div>
-            </div>
-          </div>
+    <div className="relative bg-blue-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
+      {/* Faded Background Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none">
+          PROJECTS
         </div>
       </div>
-  )
-}
 
-export default ProjectSection
+      {/* Floating Decorative Elements */}
+      <div
+        className="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg opacity-20 animate-spin"
+        style={{ animationDuration: "6s" }}
+      ></div>
+      <div
+        className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 animate-bounce"
+        style={{ animationDuration: "3s" }}
+      ></div>
+      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 animate-pulse"></div>
+      <div
+        className="absolute bottom-20 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce"
+        style={{ animationDelay: "1.5s" }}
+      ></div>
+
+      {/* Section Header */}
+      <div className="relative text-center mb-20 z-10">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
+          My Projects
+        </h2>
+        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
+        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-medium">
+          Explore my latest work and creative solutions
+        </p>
+      </div>
+
+      {/* Projects Grid */}
+      <div className="relative max-w-7xl mx-auto">
+        <div className="grid gap-8 md:gap-12 lg:grid-cols-2">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`group relative ${
+                project.featured ? "lg:col-span-2" : ""
+              }`}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+              style={{
+                animationDelay: `${index * 0.15}s`,
+              }}
+            >
+              {/* Project Card with 3D Effect */}
+              <div className="relative perspective-1000">
+                <div
+                  className={`relative bg-white/90 backdrop-blur-sm rounded-3xl overflow-hidden transform-gpu transition-all duration-700 hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-xl group-hover:shadow-[#4e45d5]/30 border border-white/60 ${
+                    project.featured ? "md:flex" : ""
+                  }`}
+                >
+                  {/* Gradient Background Overlay */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-5 group-hover:opacity-15 transition-opacity duration-500`}
+                  ></div>
+
+                  {/* Animated Border */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-[#4e45d5]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+
+                  {/* Project Image Section */}
+                  <div
+                    className={`relative ${
+                      project.featured ? "md:w-1/2" : ""
+                    } group/image`}
+                  >
+                    <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
+                      />
+
+                      {/* Image Overlay with Links */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4">
+                        {/* Live Demo Button */}
+                        <a
+                          href={project.vercelLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/btn relative px-6 py-3 bg-gradient-to-r from-[#4e45d5] to-purple-600 text-white rounded-xl font-semibold transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                          <span className="relative z-10 flex items-center gap-2">
+                            🚀 Live Demo
+                          </span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+
+                        {/* GitHub Button */}
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/btn relative px-6 py-3 bg-gradient-to-r from-gray-800 to-black text-white rounded-xl font-semibold transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                          <span className="relative z-10 flex items-center gap-2">
+                            🔗 GitHub
+                          </span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-700 rounded-xl opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                      </div>
+
+                      {/* Floating Category Badge */}
+                      <div className="absolute top-4 right-4 z-10">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-gradient-to-r ${project.gradient} text-white shadow-lg backdrop-blur-sm`}
+                        >
+                          {project.category}
+                        </span>
+                      </div>
+
+                      {/* Featured Badge */}
+                      {/* {project.featured && (
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg backdrop-blur-sm animate-pulse">
+                            ⭐ FEATURED
+                          </span>
+                        </div>
+                      )} */}
+                    </div>
+                  </div>
+
+                  {/* Project Details Section */}
+                  <div
+                    className={`relative p-8 md:p-10 z-10 ${
+                      project.featured
+                        ? "md:w-1/2 flex flex-col justify-center"
+                        : ""
+                    }`}
+                  >
+                    {/* Project Title */}
+                    <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] mb-4 group-hover:text-[#4e45d5] transition-colors duration-300 transform group-hover:translate-x-2">
+                      {project.title}
+                    </h3>
+
+                    {/* Project Description */}
+                    <p className="text-gray-700 mb-6 leading-relaxed text-sm md:text-base group-hover:text-gray-800 transition-colors duration-300">
+                      {project.description}
+                    </p>
+
+                    {/* Technologies with Enhanced Effects */}
+                    <div className="flex flex-wrap gap-3 mb-6">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="relative px-4 py-2 bg-gradient-to-r from-white to-gray-50 text-[#343d38] rounded-full text-xs md:text-sm font-semibold border border-gray-200 hover:border-[#4e45d5] transform hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-pointer group/tech shadow-sm hover:shadow-lg"
+                          style={{
+                            animationDelay: `${techIndex * 0.1}s`,
+                          }}
+                        >
+                          {tech}
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#4e45d5] to-purple-500 rounded-full opacity-0 group-hover/tech:opacity-15 transition-opacity duration-300"></div>
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons for Mobile */}
+                    <div className="flex gap-4 md:hidden">
+                      <a
+                        href={project.vercelLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 group/btn relative px-4 py-2 bg-gradient-to-r from-[#4e45d5] to-purple-600 text-white rounded-xl font-semibold text-center transform hover:scale-105 transition-all duration-300"
+                      >
+                        🚀 Live Demo
+                      </a>
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 group/btn relative px-4 py-2 bg-gradient-to-r from-gray-800 to-black text-white rounded-xl font-semibold text-center transform hover:scale-105 transition-all duration-300"
+                      >
+                        🔗 GitHub
+                      </a>
+                    </div>
+
+                    {/* Bottom Glow Effect */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4e45d5] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+                  </div>
+
+                  {/* Card Reflection Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/0 via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </div>
+
+                {/* 3D Shadow Effect */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${project.gradient} rounded-3xl transform translate-x-3 translate-y-3 opacity-15 group-hover:translate-x-6 group-hover:translate-y-6 group-hover:opacity-25 transition-all duration-500 -z-10`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom Call-to-Action */}
+      <div className="relative text-center mt-20 z-10">
+        <a
+          href="https://github.com/Divyanshguptaj"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative px-10 py-4 bg-transparent border-none cursor-pointer inline-block"
+        >
+          <span className="relative z-10 text-gray-100 font-bold text-lg whitespace-nowrap">
+            View All Projects
+          </span>
+          <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-r from-[#28282d] to-gray-800 rounded-xl transition-all duration-500 group-hover:translate-x-[8%] group-hover:translate-y-[25%] group-hover:w-[115%] group-hover:h-[115%] -z-10 shadow-lg"></div>
+          <div className="absolute translate-x-3 translate-y-3 w-12 h-12 bg-gradient-to-r from-[#4e45d5]/20 to-purple-500/20 backdrop-blur-sm rounded-full transition-all duration-500 group-hover:rounded-xl group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
+        </a>
+      </div>
+
+      {/* Enhanced Custom CSS */}
+      <style jsx>{`
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(3deg);
+          }
+        }
+
+        @keyframes gradientShift {
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
+        .group:hover .animate-shimmer {
+          animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .group/image:hover img {
+          filter: brightness(1.1) contrast(1.1);
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default Projects;
