@@ -7,7 +7,7 @@ import CubeHero from "../../assets/HeroSection/CubeHero.png";
 
 const HeroSection = () => {
   return (
-    <div className="relative flex flex-col lg:flex-row justify-center items-center min-h-[90vh] px-4 md:px-8 gap-4 overflow-hidden pt-16 lg:pt-20">
+    <div className="relative flex flex-col lg:flex-row justify-center items-center max-h-[80vh] px-4 md:px-8 gap-4 overflow-hidden pt-16 lg:pt-20">
       {/* Faded Background Text */}
       <div className="absolute inset-0 flex items-end justify-start pointer-events-none">
         <div className="text-2xl sm:text-3xl md:text-4xl xl:text-8xl font-bold text-gray-400 opacity-70 blur-sm select-none ml-2 sm:ml-4 mb-2 sm:mb-4">

@@ -3,6 +3,7 @@ import HeroSection from './components/sections/heroSection'
 import Navbar from './components/common/navbar'
 import ProjectSection from './components/sections/projectSection'
 import WorkExperience from './components/sections/workExp'
+import FloatingTechBubble from './components/sections/techStacks'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <HeroSection/>
       <WorkExperience/>
       <ProjectSection/>
+      <FloatingTechBubble/>
     </div>
   )
 }
