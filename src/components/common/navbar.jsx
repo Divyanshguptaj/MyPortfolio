@@ -8,7 +8,7 @@ const Navbar = () => {
         <nav className="flex flex-col md:flex-row justify-around items-center px-4 md:px-8 py-4 w-full">
           <div className="flex items-center text-xl md:text-2xl font-normal mb-4 md:mb-0">
             <img src={LetterD} alt="D" className="bg-blue-50 w-10 h-10 mr-1" />
-            <span className="font-bevietnam">Divyansh Gupta</span>
+            <span className="font-bevietnam">ivyansh Gupta</span>
           </div>
           <ul className="flex flex-row gap-6 md:gap-12 text-lg">
             <li>

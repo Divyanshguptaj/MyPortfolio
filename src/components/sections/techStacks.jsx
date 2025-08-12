@@ -1,19 +1,185 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
-const TechStackSection = () => {
+const TechStack = () => {
+  const [hoveredTech, setHoveredTech] = useState(null);
+  const [bubbles, setBubbles] = useState([]);
   const [bubbleSize, setBubbleSize] = useState(500);
+  const animationRef = useRef();
 
+  const techStacks = [
+    // Programming Languages
+    {
+      id: 1,
+      name: "C++",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+      color: "from-blue-600 to-blue-800"
+    },
+    {
+      id: 2,
+      name: "JavaScript",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      color: "from-yellow-400 to-yellow-600"
+    },
+    {
+      id: 3,
+      name: "TypeScript",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      color: "from-blue-500 to-blue-700"
+    },
+    {
+      id: 4,
+      name: "Python",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      color: "from-green-400 to-blue-600"
+    },
+    {
+      id: 5,
+      name: "C",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+      color: "from-blue-700 to-blue-900"
+    },
+    {
+      id: 6,
+      name: "PHP",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+      color: "from-purple-600 to-indigo-700"
+    },
+    {
+      id: 20,
+      name: "Bash",
+      category: "Programming Languages",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
+      color: "from-gray-600 to-gray-800"
+    },
+    
+    // Full-Stack Development
+    {
+      id: 7,
+      name: "React.js",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      color: "from-cyan-400 to-blue-500"
+    },
+    {
+      id: 8,
+      name: "Next.js",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      color: "from-gray-800 to-black"
+    },
+    {
+      id: 9,
+      name: "HTML+CSS",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      color: "from-orange-500 to-red-600"
+    },
+    {
+      id: 10,
+      name: "Tailwind CSS",
+      category: "Full-Stack Development",
+      icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg",
+      color: "from-cyan-400 to-teal-600"
+    },
+    {
+      id: 11,
+      name: "Bootstrap",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+      color: "from-purple-600 to-purple-800"
+    },
+    {
+      id: 12,
+      name: "Redux",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+      color: "from-purple-500 to-purple-700"
+    },
+    {
+      id: 13,
+      name: "Node.js",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      color: "from-green-500 to-green-700"
+    },
+    {
+      id: 14,
+      name: "Express.js",
+      category: "Full-Stack Development",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      color: "from-gray-700 to-gray-900"
+    },
+
+    // Database & Tools
+    {
+      id: 15,
+      name: "MongoDB",
+      category: "Database & Tools",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      color: "from-green-600 to-green-800"
+    },
+    {
+      id: 16,
+      name: "MySQL",
+      category: "Database & Tools",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+      color: "from-blue-600 to-orange-500"
+    },
+    // {
+    //   id: 21,
+    //   name: "SQL",
+    //   category: "Database & Tools",
+    //   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    //   color: "from-blue-500 to-blue-700"
+    // },
+    {
+      id: 17,
+      name: "Git",
+      category: "Database & Tools",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      color: "from-red-500 to-red-700"
+    },
+    {
+      id: 18,
+      name: "GitHub",
+      category: "Database & Tools",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      color: "from-gray-800 to-black"
+    },
+    {
+      id: 19,
+      name: "Linux",
+      category: "Database & Tools",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+      color: "from-yellow-500 to-black"
+    },
+    {
+      id: 22,
+      name: "JWT",
+      category: "Database & Tools",
+      icon: "https://cdn.worldvectorlogo.com/logos/jwt-3.svg",
+      color: "from-pink-500 to-purple-600"
+    }
+  ];
+
+  // Update bubble size based on screen size
   useEffect(() => {
     const updateBubbleSize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setBubbleSize(300);
-      } else if (width < 768) {
         setBubbleSize(400);
-      } else if (width < 1024) {
-        setBubbleSize(450);
-      } else {
+      } else if (width < 768) {
         setBubbleSize(500);
+      } else if (width < 1024) {
+        setBubbleSize(550);
+      } else {
+        setBubbleSize(600);
       }
     };
 
@@ -22,48 +188,11 @@ const TechStackSection = () => {
     return () => window.removeEventListener('resize', updateBubbleSize);
   }, []);
 
-  const techStacks = [
-    // Databases
-    { name: 'MySQL', icon: 'https://pngimg.com/d/mysql_PNG23.png', category: 'Databases' },
-    { name: 'MongoDB', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg', category: 'Databases' },
-
-    // Tools
-    { name: 'Git', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg', category: 'Tools' },
-    { name: 'GitHub', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg', category: 'Tools' },
-    { name: 'Linux', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg', category: 'Tools' },
-    { name: 'LaTeX', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/latex/latex-original.svg', category: 'Tools' },
-    { name: 'Postman', icon: 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg', category: 'Tools' },
-    { name: 'JWT', icon: 'https://cdn.worldvectorlogo.com/logos/jwt-3.svg', category: 'Tools' },
-
-    // Frameworks & Libraries
-    { name: 'React.js', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg', category: 'Frameworks' },
-    { name: 'Next.js', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg', category: 'Frameworks' },
-    { name: 'Node.js', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg', category: 'Frameworks' },
-    { name: 'Express.js', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg', category: 'Frameworks' },
-    { name: 'Redux', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg', category: 'Frameworks' },
-    { name: 'Tailwind CSS', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg', category: 'Frameworks' },
-    { name: 'Bootstrap', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg', category: 'Frameworks' },
-
-    // Programming Languages
-    { name: 'JavaScript', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg', category: 'Languages' },
-    { name: 'TypeScript', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg', category: 'Languages' },
-    { name: 'Python', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg', category: 'Languages' },
-    { name: 'C++', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg', category: 'Languages' },
-    { name: 'C', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg', category: 'Languages' },
-    { name: 'PHP', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg', category: 'Languages' },
-    { name: 'HTML', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg', category: 'Languages' },
-    { name: 'CSS', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg', category: 'Languages' },
-    // { name: 'SQL', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg', category: 'Languages' },
-    { name: 'Bash', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg', category: 'Languages' },
-    
-    
-  ];
-
   // Generate fixed positions to prevent overlapping
   const generatePositions = () => {
     const positions = [];
-    const radius = (bubbleSize - 120) / 2; // Leave space for icons
-    const minDistance = 60; // Minimum distance between icons
+    const radius = (bubbleSize - 120) / 2;
+    const minDistance = 60;
     
     for (let i = 0; i < techStacks.length; i++) {
       let position;
@@ -117,36 +246,54 @@ const TechStackSection = () => {
           left: '50%',
           top: '50%'
         }}
+        onMouseEnter={() => setHoveredTech(tech.id)}
+        onMouseLeave={() => setHoveredTech(null)}
       >
         <div className="relative">
-          {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
-          {/* Icon container */}
-          <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-white/20">
+          {/* Icon container with gradient from tech data */}
+          <div 
+            className={`relative bg-gradient-to-br ${tech.color} rounded-2xl p-2 sm:p-3 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-125 cursor-pointer border border-white/30`}
+          >
+            {/* Glass effect overlay */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/10 via-white/40 to-white/60 opacity-80"></div>
+            
+            {/* Subtle inner shadow */}
+            <div className="absolute inset-0 rounded-2xl shadow-inset"></div>
+            
             <img
               src={tech.icon}
               alt={tech.name}
-              className="w-6 h-6 sm:w-8 sm:h-8 object-contain filter drop-shadow-sm"
+              className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain filter drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300"
               onError={(e) => {
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
               }}
             />
             {/* Fallback for broken images */}
-            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xs sm:text-sm hidden">
+            <div className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base hidden">
               {tech.name.charAt(0)}
             </div>
+            
+            {/* Hover glow effect */}
+            <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-60 transition-opacity duration-500 blur-md"></div>
+            
+            {/* Ripple Effect */}
+            <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 group-hover:animate-ping transition-opacity duration-300"></div>
           </div>
           
           {/* Tooltip */}
-          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
-            {tech.name}
-          </div>
+          {hoveredTech === tech.id && (
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-sm rounded-lg whitespace-nowrap backdrop-blur-sm animate-fadeIn z-50">
+              {tech.name}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/80"></div>
+            </div>
+          )}
         </div>
       </div>
     );
   };
+
+  const categories = [...new Set(techStacks.map(tech => tech.category))];
 
   // Group tech stacks by category
   const groupedTechStacks = techStacks.reduce((acc, tech) => {
@@ -157,68 +304,63 @@ const TechStackSection = () => {
     return acc;
   }, {});
 
-  const categoryColors = {
-    Languages: 'from-blue-400 to-blue-600',
-    Frameworks: 'from-green-400 to-green-600',
-    Databases: 'from-yellow-400 to-orange-600',
-    Tools: 'from-purple-400 to-purple-600'
-  };
-
   return (
-    <section className="py-12 sm:py-20 relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
-      {/* Animated background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.2),transparent_50%)]"></div>
-        <div className="absolute inset-0 opacity-20">
-          <div className="w-full h-full" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}></div>
+    <div className="relative bg-indigo-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
+      {/* Faded Background Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none transform -rotate-12">
+          TECH STACK
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-block">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent mb-4">
-              Tech Stack
-            </h2>
-            <div className="h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full"></div>
-          </div>
-          <p className="text-slate-300 text-base sm:text-lg mt-6 max-w-2xl mx-auto">
-            Technologies and tools I work with to bring ideas to life
-          </p>
-        </div>
+      {/* Floating Decorative Elements */}
+      <div className="absolute top-16 left-8 w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-20 animate-bounce" style={{animationDuration: '4s'}}></div>
+      <div className="absolute top-1/4 right-12 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 transform rotate-45 opacity-25 animate-spin" style={{animationDuration: '6s'}}></div>
+      <div className="absolute bottom-32 left-16 w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-16 right-20 w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce" style={{animationDelay: '2s'}}></div>
 
-        {/* Main Bubble Container */}
-        <div className="flex justify-center mb-12 sm:mb-20">
-          <div className="relative" style={{ width: bubbleSize, height: bubbleSize }}>
-            {/* Outer bubble with gradient border */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 p-1">
-              <div className="w-full h-full rounded-full bg-slate-900/50 backdrop-blur-xl border border-white/10 relative overflow-hidden">
-                {/* Inner glow effect */}
-                <div className="absolute inset-4 rounded-full bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 blur-xl"></div>
-                
-                {/* Floating particles effect */}
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1 h-1 bg-blue-400/30 rounded-full animate-pulse"
-                    style={{
-                      left: `${20 + (i * 12)}%`,
-                      top: `${20 + (i * 10)}%`,
-                      animationDelay: `${i * 0.5}s`,
-                      animationDuration: '3s'
-                    }}
-                  ></div>
-                ))}
-                
-                {/* Tech stack icons */}
+      {/* Section Header */}
+      <div className="relative text-center mb-16 z-10">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
+          Tech Stack
+        </h2>
+        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
+        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-medium">
+          Technologies I work with to bring ideas to life
+        </p>
+      </div>
+
+      {/* Main Bubble Container */}
+      <div className="relative max-w-4xl mx-auto mb-20">
+        <div className="relative">
+          <div className="mx-auto relative" style={{ width: bubbleSize, height: bubbleSize }}>
+            {/* Outer Glow Ring */}
+            <div className="absolute inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-500/20 animate-pulse"></div>
+            
+            {/* Main Bubble Container */}
+            <div className="absolute inset-6 rounded-full bg-gradient-to-br from-white/60 via-blue-50/80 to-purple-50/60 backdrop-blur-lg border-2 border-white/60 shadow-2xl overflow-hidden">
+              {/* Inner Glow */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/30 to-white/50 opacity-70"></div>
+              
+              {/* Floating particles effect */}
+              {[...Array(12)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-3 h-3 bg-gradient-to-r from-[#4e45d5]/20 to-purple-400/20 rounded-full animate-pulse"
+                  style={{
+                    left: `${10 + (i * 7)}%`,
+                    top: `${10 + (i * 6)}%`,
+                    animationDelay: `${i * 0.4}s`,
+                    animationDuration: '5s'
+                  }}
+                ></div>
+              ))}
+              
+              {/* Tech stack icons */}
+              <div className="absolute inset-0">
                 {techStacks.map((tech, index) => (
                   <FloatingIcon 
-                    key={tech.name} 
+                    key={tech.id} 
                     tech={tech} 
                     index={index} 
                     position={iconPositions[index] || { x: 0, y: 0 }}
@@ -228,69 +370,86 @@ const TechStackSection = () => {
             </div>
             
             {/* Pulse rings */}
-            <div className="absolute inset-0 rounded-full border-2 border-blue-400/20 animate-ping" style={{ animationDuration: '3s' }}></div>
-            <div className="absolute inset-4 sm:inset-8 rounded-full border border-purple-400/20 animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+            <div className="absolute inset-0 rounded-full border-2 border-[#4e45d5]/25 animate-ping" style={{ animationDuration: '4s' }}></div>
+            <div className="absolute inset-3 rounded-full border border-purple-400/30 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+            <div className="absolute inset-5 rounded-full border border-cyan-400/20 animate-ping" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
           </div>
         </div>
+      </div>
 
-        {/* Tech Stack List */}
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-            Technologies & Tools
-          </h3>
-          
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(groupedTechStacks).map(([category, techs]) => (
-              <div key={category} className="bg-black/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 hover:bg-slate-600 hover:opacity-50 transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${categoryColors[category]}`}></div>
-                  <h4 className="text-lg sm:text-xl font-semibold text-white">{category}</h4>
-                  <span className="text-slate-600 text-sm bg-white/50 rounded-full px-2 py-0.5">
-                    {techs.length}
-                  </span>
-                </div>
+      {/* Tech Categories List */}
+      <div className="relative max-w-6xl mx-auto z-10">
+        <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] text-center mb-12">
+          Categories & Technologies
+        </h3>
+        
+        <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-3">
+          {categories.map((category, categoryIndex) => (
+            <div 
+              key={category}
+              className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/50"
+              style={{
+                animationDelay: `${categoryIndex * 0.1}s`
+              }}
+            >
+              {/* Category Gradient Background */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#4e45d5]/5 to-purple-500/5 group-hover:from-[#4e45d5]/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
+              
+              <div className="relative z-10">
+                <h4 className="text-lg font-bold text-[#4e45d5] mb-4 group-hover:text-purple-600 transition-colors duration-300">
+                  {category}
+                </h4>
                 
                 <div className="space-y-2">
-                  {techs.map((tech) => (
-                    <div key={tech.name} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors duration-200">
-                      <img
-                        src={tech.icon}
-                        alt={tech.name}
-                        className="w-5 h-5 sm:w-6 sm:h-6 object-contain flex-shrink-0"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
+                  {techStacks
+                    .filter(tech => tech.category === category)
+                    .map((tech, techIndex) => (
+                      <div 
+                        key={tech.id}
+                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/60 transition-all duration-300 group/item"
+                        style={{
+                          animationDelay: `${techIndex * 0.05}s`
                         }}
-                      />
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold text-xs hidden flex-shrink-0">
-                        {tech.name.charAt(0)}
+                      >
+                        <div className="w-6 h-6 flex-shrink-0">
+                          <img 
+                            src={tech.icon} 
+                            alt={tech.name}
+                            className="w-full h-full object-contain group-hover/item:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                        <span className="text-[#343d38] font-medium text-sm group-hover/item:text-[#4e45d5] transition-colors duration-300">
+                          {tech.name}
+                        </span>
                       </div>
-                      <span className="text-slate-300 text-sm sm:text-base font-medium">
-                        {tech.name}
-                      </span>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Category Legend */}
-        <div className="mt-12 sm:mt-16 flex flex-wrap justify-center gap-4 sm:gap-6">
-          {Object.entries(categoryColors).map(([category, color]) => (
-            <div key={category} className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full px-3 sm:px-4 py-2 border border-white/10">
-              <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${color}`}></div>
-              <span className="text-slate-300 text-sm font-medium">{category}</span>
-              <span className="text-slate-600 font-bold text-xs bg-white/30 rounded-full px-2 py-0.5">
-                {groupedTechStacks[category]?.length || 0}
-              </span>
+              
+              {/* Bottom Glow Effect */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4e45d5] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-500 rounded-b-2xl"></div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+
+      {/* CSS */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+          to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        
+        .shadow-inset {
+          box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+      `}</style>
+    </div>
   );
 };
 
-export default TechStackSection;
+export default TechStack;

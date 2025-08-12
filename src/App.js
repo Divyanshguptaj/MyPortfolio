@@ -4,6 +4,7 @@ import Navbar from './components/common/navbar'
 import ProjectSection from './components/sections/projectSection'
 import WorkExperience from './components/sections/workExp'
 import FloatingTechBubble from './components/sections/techStacks'
+import AchievementsSection from './components/sections/achievements'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <WorkExperience/>
       <ProjectSection/>
       <FloatingTechBubble/>
+      <AchievementsSection/>
     </div>
   )
 }
