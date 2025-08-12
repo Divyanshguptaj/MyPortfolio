@@ -9,7 +9,6 @@ const AchievementsSection = () => {
   const [hoveredAchievement, setHoveredAchievement] = useState(null);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [imageOrientations, setImageOrientations] = useState({});
-  const sectionRef = useRef(null);
 
   const achievements = [
     {
