@@ -62,7 +62,7 @@ Best regards,
   ];
 
   return (
-    <div id="contact-section" className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden">
+    <div id="contact" className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden">
       {/* Enhanced Background Elements matching achievements section */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       

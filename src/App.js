@@ -6,6 +6,7 @@ import WorkExperience from './components/sections/workExp'
 import FloatingTechBubble from './components/sections/techStacks'
 import AchievementsSection from './components/sections/achievements'
 import ContactSection from './components/sections/contactUs'
+import FooterSection from './components/sections/footer'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <FloatingTechBubble/>
       <AchievementsSection/>
       <ContactSection />
+      <FooterSection />
     </div>
   )
 }
