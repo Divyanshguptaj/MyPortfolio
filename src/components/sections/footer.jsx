@@ -107,7 +107,8 @@ const FooterSection = () => {
   ];
 
   const quickLinks = [
-    { name: "About Me", href: "#about" },
+    { name: "About Me", href: "#" },
+    { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
     { name: "Skills", href: "#skills" },
     { name: "Achievements", href: "#achievements" },
