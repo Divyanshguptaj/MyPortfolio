@@ -5,6 +5,7 @@ import ProjectSection from './components/sections/projectSection'
 import WorkExperience from './components/sections/workExp'
 import FloatingTechBubble from './components/sections/techStacks'
 import AchievementsSection from './components/sections/achievements'
+import ContactSection from './components/sections/contactUs'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <ProjectSection/>
       <FloatingTechBubble/>
       <AchievementsSection/>
+      <ContactSection />
     </div>
   )
 }
