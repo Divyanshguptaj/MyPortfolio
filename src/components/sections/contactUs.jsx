@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react";
-import { Mail, Heart, ArrowRight, Clock, User, Globe } from "lucide-react";
+import { useState } from "react";
+import { Mail, Heart, ArrowRight, Clock, User } from "lucide-react";
 
 const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Track mouse position for interactive effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const rect = document
-        .getElementById("contact-section")
-        ?.getBoundingClientRect();
-      if (rect) {
-        setMousePosition({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-        });
-      }
-    };
+  // useEffect(() => {
+  //   const handleMouseMove = (e) => {
+  //     const rect = document
+  //       .getElementById("contact-section")
+  //       ?.getBoundingClientRect();
+  //     // if (rect) {
+  //     //   setMousePosition({
+  //     //     x: ((e.clientX - rect.left) / rect.width) * 100,
+  //     //     y: ((e.clientY - rect.top) / rect.height) * 100,
+  //     //   });
+  //     // }
+  //   };
 
-    const section = document.getElementById("contact-section");
-    if (section) {
-      section.addEventListener("mousemove", handleMouseMove);
-      return () => section.removeEventListener("mousemove", handleMouseMove);
-    }
-  }, []);
+  //   const section = document.getElementById("contact-section");
+  //   if (section) {
+  //     section.addEventListener("mousemove", handleMouseMove);
+  //     return () => section.removeEventListener("mousemove", handleMouseMove);
+  //   }
+  // }, []);
 
   const handleContactClick = () => {
     const subject = encodeURIComponent("Hello! I'd love to connect with you");

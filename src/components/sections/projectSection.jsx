@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+// import { useState } from "react";
 
 import projects from '../../data/Projects'
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState(null);
+  // const [hoveredProject, setHoveredProject] = useState(null);
 
   return (
     <div id="projects" className="relative bg-blue-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
@@ -49,8 +49,8 @@ const Projects = () => {
               className={`group relative ${
                 project.featured ? "lg:col-span-2" : ""
               }`}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
+              // onMouseEnter={() => setHoveredProject(project.id)}
+              // onMouseLeave={() => setHoveredProject(null)}
               style={{
                 animationDelay: `${index * 0.15}s`,
               }}

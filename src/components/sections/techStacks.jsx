@@ -34,6 +34,7 @@ const TechStack = () => {
     for (let i = 0; i < techStacks.length; i++) {
       let position;
       let attempts = 0;
+      let isValidPosition;
       
       do {
         const angle = Math.random() * 2 * Math.PI;
@@ -43,11 +44,17 @@ const TechStack = () => {
           y: Math.sin(angle) * r
         };
         attempts++;
-      } while (
-        positions.some(pos => 
-          Math.sqrt((pos.x - position.x) ** 2 + (pos.y - position.y) ** 2) < minDistance
-        ) && attempts < 50
-      );
+        
+        // Check distance outside the callback
+        isValidPosition = true;
+        for (const pos of positions) {
+          const distance = Math.sqrt((pos.x - position.x) ** 2 + (pos.y - position.y) ** 2);
+          if (distance < minDistance) {
+            isValidPosition = false;
+            break;
+          }
+        }
+      } while (!isValidPosition && attempts < 50);
       
       positions.push(position);
     }
@@ -56,7 +63,7 @@ const TechStack = () => {
   };
 
   const [iconPositions] = useState(() => generatePositions());
-
+ 
   const FloatingIcon = ({ tech, index, position }) => {
     const [currentPos, setCurrentPos] = useState(position);
     
