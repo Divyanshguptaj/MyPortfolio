@@ -1,5 +1,5 @@
 import React from "react";
-
+import links from '../../data/DownloadLinks'
 const WorkExperience = () => {
   const experiences = [
     {
@@ -144,7 +144,7 @@ const WorkExperience = () => {
       {/* Bottom Call-to-Action */}
       <div className="relative text-center mt-20 z-10">
   <a
-    href="https://drive.google.com/uc?export=download&id=1qJFu7Dh8IxZ8w-6BiDHPTRytGLMh_IZO"
+    href={links.downloadCV}
     download
     target="_blank"
     rel="noopener noreferrer"

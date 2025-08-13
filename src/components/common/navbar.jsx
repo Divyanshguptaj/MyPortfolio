@@ -1,4 +1,5 @@
 import LetterD from "../../assets/letterD.png";
+import links from '../../data/DownloadLinks'
 
 const Navbar = () => {
   return (
@@ -53,7 +54,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="https://drive.google.com/uc?export=download&id=1qJFu7Dh8IxZ8w-6BiDHPTRytGLMh_IZO"
+                href={links.downloadCV}
                 download
                 className="text-black font-light hover:border-b-2 hover:border-black transition-all duration-300 px-1 py-1"
               >
