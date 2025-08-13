@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Send, MessageCircle, Heart, Star, Sparkles, ArrowRight, Phone, MapPin, Calendar, Clock, User, Globe } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Mail, Heart, ArrowRight, Clock, User, Globe } from "lucide-react";
 
 const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Track mouse position for interactive effects
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const rect = document.getElementById('contact-section')?.getBoundingClientRect();
+      const rect = document
+        .getElementById("contact-section")
+        ?.getBoundingClientRect();
       if (rect) {
         setMousePosition({
           x: ((e.clientX - rect.left) / rect.width) * 100,
@@ -18,10 +19,10 @@ const ContactSection = () => {
       }
     };
 
-    const section = document.getElementById('contact-section');
+    const section = document.getElementById("contact-section");
     if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
+      section.addEventListener("mousemove", handleMouseMove);
+      return () => section.removeEventListener("mousemove", handleMouseMove);
     }
   }, []);
 
@@ -35,37 +36,19 @@ Looking forward to hearing from you!
 
 Best regards,
 [Your Name]`);
-    
+
     const mailtoLink = `mailto:luckys510039@gmail.com?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
   };
 
-  const contactInfo = [
-    {
-      id: 1,
-      icon: Mail,
-      title: "Email Me",
-      subtitle: "luckys510039@gmail.com",
-      description: "Send me an email for project inquiries, collaborations, or just to say hello!",
-      color: "from-blue-500 via-cyan-500 to-teal-500",
-      action: "primary"
-    },
-    {
-      id: 2,
-      icon: Globe,
-      title: "Open for Work",
-      subtitle: "Available Now",
-      description: "Currently available for freelance projects and full-time opportunities.",
-      color: "from-green-500 via-emerald-500 to-teal-500",
-      action: "info"
-    }
-  ];
-
   return (
-    <div id="contact" className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden">
+    <div
+      id="contact"
+      className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden"
+    >
       {/* Enhanced Background Elements matching achievements section */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
+
       {/* Faded Background Text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 bg-clip-text text-transparent opacity-40 select-none">
@@ -74,10 +57,19 @@ Best regards,
       </div>
 
       {/* Enhanced Floating Elements matching achievements style */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl opacity-20 animate-spin blur-sm" style={{ animationDuration: "8s" }}></div>
-      <div className="absolute top-1/3 right-20 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 animate-bounce blur-sm" style={{ animationDuration: "4s" }}></div>
+      <div
+        className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl opacity-20 animate-spin blur-sm"
+        style={{ animationDuration: "8s" }}
+      ></div>
+      <div
+        className="absolute top-1/3 right-20 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 animate-bounce blur-sm"
+        style={{ animationDuration: "4s" }}
+      ></div>
       <div className="absolute bottom-40 left-1/4 w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 animate-pulse rounded-lg"></div>
-      <div className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce blur-sm" style={{ animationDelay: "2s" }}></div>
+      <div
+        className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce blur-sm"
+        style={{ animationDelay: "2s" }}
+      ></div>
 
       {/* Section Header matching achievements style */}
       <div className="relative text-center mb-24 z-10">
@@ -88,10 +80,11 @@ Best regards,
           <div className="w-40 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse shadow-lg"></div>
         </div>
         <p className="text-xl md:text-2xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium leading-relaxed">
-          Ready to bring your ideas to life? Let's discuss how we can work together
+          Ready to bring your ideas to life? Let's discuss how we can work
+          together
         </p>
       </div>
-      
+
       {/* CTA Section */}
       <div className="relative text-center mt-10 z-10">
         <div className="max-w-2xl mx-auto">
@@ -99,17 +92,20 @@ Best regards,
             <div className="space-y-6">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Heart className="w-6 h-6 text-red-500 animate-pulse" />
-                <span className="text-gray-700 font-medium text-lg">Ready to start your project?</span>
+                <span className="text-gray-700 font-medium text-lg">
+                  Ready to start your project?
+                </span>
                 <Heart className="w-6 h-6 text-red-500 animate-pulse" />
               </div>
-              
+
               <h3 className="text-3xl font-black text-gray-800 mb-4">
                 Let's Build Something Amazing Together!
               </h3>
-              
+
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Whether you have a clear vision or just an idea, I'm here to help turn your dreams into reality. 
-                Let's discuss your project and see how we can collaborate.
+                Whether you have a clear vision or just an idea, I'm here to
+                help turn your dreams into reality. Let's discuss your project
+                and see how we can collaborate.
               </p>
 
               {/* Large Primary CTA Button */}
@@ -119,17 +115,23 @@ Best regards,
                 onMouseLeave={() => setIsHovered(false)}
               >
                 <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl opacity-30 blur group-hover:opacity-60 group-hover:blur-lg transition-all duration-500"></div>
-                
+
                 <button
                   onClick={handleContactClick}
                   className="relative flex items-center justify-center px-12 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-black text-xl rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20 group overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   <div className="relative flex items-center space-x-3 z-10">
-                    <Mail className={`w-6 h-6 transition-all duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
+                    <Mail
+                      className={`w-6 h-6 transition-all duration-300 ${
+                        isHovered ? "animate-bounce" : ""
+                      }`}
+                    />
                     <span>Get In Touch</span>
-                    <ArrowRight className={`w-5 h-5 transition-all duration-300 group-hover:translate-x-1`} />
+                    <ArrowRight
+                      className={`w-5 h-5 transition-all duration-300 group-hover:translate-x-1`}
+                    />
                   </div>
 
                   {/* Ripple Effect */}
@@ -169,8 +171,10 @@ Best regards,
         }
 
         .bg-grid-pattern {
-          background-image: 
-            linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+          background-image: linear-gradient(
+              rgba(99, 102, 241, 0.1) 1px,
+              transparent 1px
+            ),
             linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
           background-size: 50px 50px;
         }
