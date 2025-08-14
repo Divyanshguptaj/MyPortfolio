@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import links from '../../data/DownloadLinks'
 
 // Mock letterD image - replace with your actual import
 const LetterD = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23dbeafe'/%3E%3Ctext x='20' y='28' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' fill='%231e40af'%3ED%3C/text%3E%3C/svg%3E";
-
-// Mock download links - replace with your actual import
-const links = {
-  downloadCV: "#"
-};
 
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState('');
