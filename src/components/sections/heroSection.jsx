@@ -37,72 +37,81 @@ const HeroSection = () => {
       </div>
 
       {/* Hero Right */}
-      <div className="relative flex justify-center items-center w-full lg:w-2/5 mt-8 lg:mt-0 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
-        {/* Animated Icons */}
-        <div className="absolute bottom-[25%] left-[10%] sm:left-[25%] lg:left-[35%] z-20">
-          <img
-            src={SunHero}
-            alt="Sun decoration"
-            className="h-10 w-10 sm:h-12 sm:w-12 lg:h-12 lg:w-12 animate-bounce hover:scale-110 transition-transform duration-300 drop-shadow-lg"
-            style={{
-              animationDuration: "2s",
-            }}
-          />
-        </div>
-
-        <div className="absolute top-[20%] left-[10%] sm:left-[20%] lg:left-[25%] z-20">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20">
-            <img
-              src={WaveHero}
-              alt="Wave decoration"
-              className="h-full w-full hover:scale-110 transition-transform duration-300 drop-shadow-lg"
-              style={{
-                animation: "float 3s ease-in-out infinite alternate",
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="absolute top-[25%] right-[15%] sm:right-[20%] lg:right-[25%] z-20">
-          <img
-            src={CubeHero}
-            alt="Cube decoration"
-            className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 hover:scale-110 transition-transform duration-300 drop-shadow-lg"
-            style={{
-              animation: "spin 4s linear infinite, pulse 2s ease-in-out infinite alternate",
-            }}
-          />
-        </div>
-
-        <div className="absolute bottom-[15%] right-[15%] sm:right-[25%] lg:right-[30%] z-20">
-          <img
-            src={DotsHero}
-            alt="Dots decoration"
-            className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 hover:scale-110 transition-transform duration-300 drop-shadow-lg"
-            style={{
-              animation: "bounce 2.5s ease-in-out infinite alternate-reverse",
-            }}
-          />
-        </div>
-
-        {/* User Image */}
-        <div className="relative p-6 sm:p-8 lg:p-10 z-10">
-          <div
-            className="relative w-40 h-52 sm:w-64 sm:h-72 md:w-56 md:h-72 lg:w-60 lg:h-80 xl:w-80 xl:h-96 rounded-lg  overflow-hidden border-[40px]"
-            style={{
-              borderColor: "#F5F5DC",
-              animation: "userImageFloat 6s ease-in-out infinite",
-            }}
-          >
-            <img
-              src={UserImage}
-              alt="Divyansh Gupta"
-              className="w-full h-full object-cover transition-all duration-1000 grayscale-0  hover:grayscale-1 hover:scale-105"
-            />
+      <div className="relative flex justify-center items-center w-full lg:w-2/5 mt-8 lg:mt-0">
+        {/* Image Container with Constrained Icons */}
+        <div className="relative">
+          {/* User Image */}
+          <div className="relative p-4 sm:p-6 lg:p-8 z-10">
             <div
-              className="absolute border-2 rounded-lg opacity-50 animate-pulse"
-              style={{ borderColor: "#F5F5DC" }}
-            ></div>
+              className="relative w-52 h-64 sm:w-72 sm:h-80 md:w-64 md:h-80 lg:w-72 lg:h-88 xl:w-80 xl:h-96 rounded-lg overflow-hidden border-[15px] sm:border-[20px] md:border-[25px] lg:border-[30px]"
+              style={{
+                borderColor: "#F5F5DC",
+                animation: "userImageFloat 6s ease-in-out infinite",
+              }}
+            >
+              <img
+                src={UserImage}
+                alt="Divyansh Gupta"
+                className="w-full h-full object-cover transition-all duration-1000 grayscale-0 hover:grayscale-1 hover:scale-105"
+              />
+              <div
+                className="absolute border-2 rounded-lg opacity-50 animate-pulse"
+                style={{ borderColor: "#F5F5DC" }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Animated Icons - Positioned relative to image container */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Sun Icon */}
+            <div className="absolute bottom-[20%] left-[15%] z-20 pointer-events-auto">
+              <img
+                src={SunHero}
+                alt="Sun decoration"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 animate-bounce hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                style={{
+                  animationDuration: "2s",
+                }}
+              />
+            </div>
+
+            {/* Wave Icon */}
+            <div className="absolute top-[15%] left-[10%] z-20 pointer-events-auto">
+              <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
+                <img
+                  src={WaveHero}
+                  alt="Wave decoration"
+                  className="h-full w-full hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                  style={{
+                    animation: "float 3s ease-in-out infinite alternate",
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Cube Icon */}
+            <div className="absolute top-[20%] right-[10%] z-20 pointer-events-auto">
+              <img
+                src={CubeHero}
+                alt="Cube decoration"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                style={{
+                  animation: "spin 4s linear infinite, pulse 2s ease-in-out infinite alternate",
+                }}
+              />
+            </div>
+
+            {/* Dots Icon */}
+            <div className="absolute bottom-[15%] right-[15%] z-20 pointer-events-auto">
+              <img
+                src={DotsHero}
+                alt="Dots decoration"
+                className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:h-12 lg:h-14 lg:w-14 hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                style={{
+                  animation: "bounce 2.5s ease-in-out infinite alternate-reverse",
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -143,10 +152,10 @@ const HeroSection = () => {
             50% {
               transform: scale(1.02);
               filter: grayscale(1);
-              }
-              100%{
-                transform: scale(1.02);
-                filter: grayscale(0);
+            }
+            100% {
+              transform: scale(1.02);
+              filter: grayscale(0);
             }
           }
         }
