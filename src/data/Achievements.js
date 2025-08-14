@@ -39,7 +39,7 @@ const achievements = [
     skills: ["Teamwork", "Speed", "Endurance", "Athletic Coordination"],
     color: "from-emerald-500 via-teal-500 to-blue-500",
     icon: Code,
-    achievement: "1st Place",
+    achievement: "3rd Place",
   },
   {
     id: 3,

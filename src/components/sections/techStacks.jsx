@@ -1,23 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import techStacks from "../../data/TechStacks";
 
 const TechStack = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
   const [bubbleSize, setBubbleSize] = useState(500);
+  const [iconPositions, setIconPositions] = useState([]);
+  const [floatingOffsets, setFloatingOffsets] = useState([]);
+  const [screenSize, setScreenSize] = useState('lg');
 
-  // Update bubble size based on screen size
+  // Enhanced responsive bubble size calculation
   useEffect(() => {
     const updateBubbleSize = () => {
       const width = window.innerWidth;
-      if (width < 640) {
-        setBubbleSize(400);
+      const height = window.innerHeight;
+      
+      // Calculate optimal bubble size based on viewport
+      const minDimension = Math.min(width, height);
+      let newSize;
+      let newScreenSize;
+      
+      if (width < 480) {
+        // Extra small screens (phones in portrait)
+        newSize = Math.min(minDimension * 0.75, 260);
+        newScreenSize = 'xs';
+      } else if (width < 640) {
+        // Small screens (phones in landscape)
+        newSize = Math.min(minDimension * 0.65, 320);
+        newScreenSize = 'sm';
       } else if (width < 768) {
-        setBubbleSize(500);
+        // Medium screens (tablets in portrait)
+        newSize = Math.min(minDimension * 0.6, 380);
+        newScreenSize = 'md';
       } else if (width < 1024) {
-        setBubbleSize(550);
+        // Large screens (tablets in landscape, small laptops)
+        newSize = Math.min(minDimension * 0.55, 450);
+        newScreenSize = 'lg';
+      } else if (width < 1280) {
+        // Extra large screens (laptops)
+        newSize = Math.min(minDimension * 0.5, 520);
+        newScreenSize = 'xl';
       } else {
-        setBubbleSize(600);
+        // 2XL screens (desktops)
+        newSize = Math.min(minDimension * 0.45, 580);
+        newScreenSize = '2xl';
       }
+      
+      setBubbleSize(Math.max(newSize, 240)); // Minimum size
+      setScreenSize(newScreenSize);
     };
 
     updateBubbleSize();
@@ -25,45 +54,81 @@ const TechStack = () => {
     return () => window.removeEventListener('resize', updateBubbleSize);
   }, []);
 
-  // Generate fixed positions to prevent overlapping
-  const generatePositions = () => {
+  // Enhanced position generation with better distribution
+  const generatePositions = useCallback(() => {
     const positions = [];
-    const radius = (bubbleSize - 120) / 2;
-    const minDistance = 60;
+    const centerX = bubbleSize / 2;
+    const centerY = bubbleSize / 2;
+    
+    // Dynamic radius and spacing based on screen size and bubble size
+    const baseRadius = bubbleSize * 0.28;
+    const minDistance = screenSize === 'xs' ? bubbleSize * 0.12 : 
+                       screenSize === 'sm' ? bubbleSize * 0.11 :
+                       screenSize === 'md' ? bubbleSize * 0.10 :
+                       bubbleSize * 0.09;
+    
+    // Create multiple rings for better distribution
+    const ringCount = screenSize === 'xs' ? 2 : screenSize === 'sm' ? 2 : 3;
+    const iconsPerRing = Math.ceil(techStacks.length / ringCount);
     
     for (let i = 0; i < techStacks.length; i++) {
-      let position;
       let attempts = 0;
-      let isValidPosition;
+      let validPosition = false;
+      let newPos;
       
-      do {
-        const angle = Math.random() * 2 * Math.PI;
-        const r = Math.random() * radius * 0.8 + radius * 0.2;
-        position = {
-          x: Math.cos(angle) * r,
-          y: Math.sin(angle) * r
-        };
-        attempts++;
+      // Determine which ring this icon belongs to
+      const ringIndex = Math.floor(i / iconsPerRing);
+      const ringRadius = baseRadius * (0.5 + (ringIndex * 0.4));
+      const angleOffset = ringIndex * 0.3; // Offset rings for better distribution
+
+      while (!validPosition && attempts < 150) {
+        // Use both systematic and random positioning
+        const systematicAngle = (Math.PI * 2 * i) / techStacks.length;
+        const randomAngle = Math.random() * Math.PI * 2;
+        const angle = attempts < 50 ? systematicAngle + angleOffset : randomAngle;
         
-        // Check distance outside the callback
-        isValidPosition = true;
-        for (const pos of positions) {
-          const distance = Math.sqrt((pos.x - position.x) ** 2 + (pos.y - position.y) ** 2);
-          if (distance < minDistance) {
-            isValidPosition = false;
-            break;
-          }
-        }
-      } while (!isValidPosition && attempts < 50);
-      
-      positions.push(position);
+        // Vary distance within the ring
+        const distanceVariation = screenSize === 'xs' ? 0.2 : 0.3;
+        const distance = ringRadius * (0.8 + Math.random() * distanceVariation);
+        
+        newPos = {
+          x: Math.max(minDistance, Math.min(bubbleSize - minDistance, 
+              centerX + Math.cos(angle) * distance)),
+          y: Math.max(minDistance, Math.min(bubbleSize - minDistance, 
+              centerY + Math.sin(angle) * distance))
+        };
+
+        // Enhanced overlap checking
+        validPosition = positions.every(pos => {
+          const dx = newPos.x - pos.x;
+          const dy = newPos.y - pos.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          return distance >= minDistance;
+        });
+
+        attempts++;
+      }
+
+      if (validPosition) {
+        positions.push(newPos);
+      } else {
+        // Enhanced fallback with spiral arrangement
+        const spiralAngle = i * 0.5 + (i * Math.PI * 2) / techStacks.length;
+        const spiralRadius = baseRadius * (0.6 + (i % 3) * 0.2);
+        positions.push({
+          x: Math.max(minDistance, Math.min(bubbleSize - minDistance,
+              centerX + Math.cos(spiralAngle) * spiralRadius)),
+          y: Math.max(minDistance, Math.min(bubbleSize - minDistance,
+              centerY + Math.sin(spiralAngle) * spiralRadius))
+        });
+      }
     }
-    
+
     return positions;
-  };
+  }, [bubbleSize, screenSize]);
 
   const [iconPositions] = useState(() => generatePositions());
- 
+
   const FloatingIcon = ({ tech, index, position }) => {
     const [currentPos, setCurrentPos] = useState(position);
     
@@ -107,14 +172,28 @@ const TechStack = () => {
             <img
               src={tech.icon}
               alt={tech.name}
-              className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain filter drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300"
+              className={`relative z-10 object-contain filter drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300 ${
+                screenSize === 'xs' ? 'w-5 h-5' :
+                screenSize === 'sm' ? 'w-6 h-6' :
+                screenSize === 'md' ? 'w-7 h-7' :
+                screenSize === 'lg' ? 'w-8 h-8' :
+                screenSize === 'xl' ? 'w-9 h-9' :
+                'w-10 h-10'
+              }`}
               onError={(e) => {
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
               }}
             />
-            {/* Fallback for broken images */}
-            <div className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base hidden">
+            {/* Enhanced fallback for broken images */}
+            <div className={`relative z-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold hidden ${
+              screenSize === 'xs' ? 'w-5 h-5 text-xs' :
+              screenSize === 'sm' ? 'w-6 h-6 text-xs' :
+              screenSize === 'md' ? 'w-7 h-7 text-sm' :
+              screenSize === 'lg' ? 'w-8 h-8 text-sm' :
+              screenSize === 'xl' ? 'w-9 h-9 text-base' :
+              'w-10 h-10 text-base'
+            }`}>
               {tech.name.charAt(0)}
             </div>
             
@@ -138,7 +217,6 @@ const TechStack = () => {
   };
 
   const categories = [...new Set(techStacks.map(tech => tech.category))];
-
 
   return (
     <div id="skills" className="relative bg-indigo-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
@@ -167,25 +245,40 @@ const TechStack = () => {
       </div>
 
       {/* Main Bubble Container */}
-      <div className="relative max-w-4xl mx-auto mb-20">
-        <div className="relative">
-          <div className="mx-auto relative" style={{ width: bubbleSize, height: bubbleSize }}>
+      <div className={`relative mx-auto mb-20 ${
+        screenSize === 'xs' ? 'max-w-sm px-2' :
+        screenSize === 'sm' ? 'max-w-md px-3' :
+        screenSize === 'md' ? 'max-w-lg px-4' :
+        screenSize === 'lg' ? 'max-w-2xl px-6' :
+        screenSize === 'xl' ? 'max-w-3xl px-8' :
+        'max-w-4xl px-10'
+      }`}>
+        <div className="relative flex justify-center">
+          <div className="relative" style={{ width: bubbleSize, height: bubbleSize }}>
             {/* Outer Glow Ring */}
             <div className="absolute inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-500/20 animate-pulse"></div>
             
             {/* Main Bubble Container */}
-            <div className="absolute inset-6 rounded-full bg-gradient-to-br from-white/60 via-blue-50/80 to-purple-50/60 backdrop-blur-lg border-2 border-white/60 shadow-2xl overflow-hidden">
+            <div className={`absolute rounded-full bg-gradient-to-br from-white/60 via-blue-50/80 to-purple-50/60 backdrop-blur-lg border-2 border-white/60 shadow-2xl overflow-hidden ${
+              screenSize === 'xs' ? 'inset-4' :
+              screenSize === 'sm' ? 'inset-5' :
+              'inset-6'
+            }`}>
               {/* Inner Glow */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/30 to-white/50 opacity-70"></div>
               
-              {/* Floating particles effect */}
-              {[...Array(12)].map((_, i) => (
+              {/* Responsive floating particles effect */}
+              {[...Array(screenSize === 'xs' ? 8 : screenSize === 'sm' ? 10 : 12)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-3 h-3 bg-gradient-to-r from-[#4e45d5]/20 to-purple-400/20 rounded-full animate-pulse"
+                  className={`absolute bg-gradient-to-r from-[#4e45d5]/20 to-purple-400/20 rounded-full animate-pulse ${
+                    screenSize === 'xs' ? 'w-2 h-2' :
+                    screenSize === 'sm' ? 'w-2.5 h-2.5' :
+                    'w-3 h-3'
+                  }`}
                   style={{
-                    left: `${10 + (i * 7)}%`,
-                    top: `${10 + (i * 6)}%`,
+                    left: `${15 + (i * (70 / (screenSize === 'xs' ? 8 : screenSize === 'sm' ? 10 : 12)))}%`,
+                    top: `${15 + (i * (70 / (screenSize === 'xs' ? 8 : screenSize === 'sm' ? 10 : 12)))}%`,
                     animationDelay: `${i * 0.4}s`,
                     animationDuration: '5s'
                   }}
