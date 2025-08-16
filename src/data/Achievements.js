@@ -28,7 +28,7 @@ const achievements = [
   },
   {
     id: 2,
-    title: "Inter IIITA Programming Contest",
+    title: "Inter IIITA Sports Contest",
     issuer: "IIIT Allahabad",
     date: "2024",
     category: "Sports",
