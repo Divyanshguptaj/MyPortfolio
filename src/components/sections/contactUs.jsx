@@ -3,39 +3,17 @@ import { Mail, Heart, ArrowRight, Clock, User } from "lucide-react";
 
 const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Track mouse position for interactive effects
-  // useEffect(() => {
-  //   const handleMouseMove = (e) => {
-  //     const rect = document
-  //       .getElementById("contact-section")
-  //       ?.getBoundingClientRect();
-  //     // if (rect) {
-  //     //   setMousePosition({
-  //     //     x: ((e.clientX - rect.left) / rect.width) * 100,
-  //     //     y: ((e.clientY - rect.top) / rect.height) * 100,
-  //     //   });
-  //     // }
-  //   };
-
-  //   const section = document.getElementById("contact-section");
-  //   if (section) {
-  //     section.addEventListener("mousemove", handleMouseMove);
-  //     return () => section.removeEventListener("mousemove", handleMouseMove);
-  //   }
-  // }, []);
 
   const handleContactClick = () => {
     const subject = encodeURIComponent("Hello! I'd love to connect with you");
     const body = encodeURIComponent(`Hi there!
 
-I came across your portfolio and I'm impressed with your work. I would love to discuss potential opportunities or collaborations.
+    I came across your portfolio and I'm impressed with your work. I would love to discuss potential opportunities or collaborations.
 
-Looking forward to hearing from you!
+    Looking forward to hearing from you!
 
-Best regards,
-[Your Name]`);
+    Best regards,
+    [Your Name]`);
 
     const mailtoLink = `mailto:luckys510039@gmail.com?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;

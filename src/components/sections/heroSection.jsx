@@ -24,15 +24,14 @@ const HeroSection = () => {
           I am a <span className="text-[#4e45d5]">Developer</span>
         </div>
         <div className="text-sm sm:text-base md:text-lg w-full lg:w-4/5 font-medium leading-relaxed max-w-md lg:max-w-none">
-          I am a software developer and here is my portfolio website. Here you
-          will get my projects and skills which I mastered till now.
+          I’m a passionate Software Developer specializing in building scalable web applications and crafting innovative digital solutions, showcasing my skills and projects that reflect my journey and expertise.
         </div>
         <button className="group relative px-6 sm:px-8 py-3 bg-transparent border-none cursor-pointer mt-2">
           <span className="relative z-10 text-gray-100 font-medium text-sm sm:text-base whitespace-nowrap">
             Hire Me
           </span>
           <div className="absolute bottom-0 right-0 w-full h-full bg-[#28282d] rounded-lg transition-all duration-400 group-hover:translate-x-[5%] group-hover:translate-y-[20%] group-hover:w-[110%] group-hover:h-[110%] -z-10"></div>
-          <div className="absolute translate-x-2.5 translate-y-2.5 w-9 h-9 bg-white/10 backdrop-blur-sm rounded-full transition-all duration-400 group-hover:rounded-lg group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
+          <div className="absolute translate-x-2.5 translate-y-2.5 w-9 h-9 bg-white/40 backdrop-blur-sm rounded-full transition-all duration-400 group-hover:rounded-lg group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
         </button>
       </div>
 

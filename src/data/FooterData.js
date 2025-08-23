@@ -64,6 +64,8 @@ const skills = [
   "C++",
   "Tailwind CSS",
   "Git",
+  "Docker",
+  "Web-Socket"
 ];
 
 export { skills, quickLinks, socialLinks };

@@ -56,7 +56,7 @@ const techStacks = [
     name: "React.js",
     category: "Full-Stack Development",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    color: "from-cyan-400 to-blue-500",
+    color: "from-blue-50 to-blue-200",  
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ const techStacks = [
     name: "Tailwind CSS",
     category: "Full-Stack Development",
     icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg",
-    color: "from-cyan-400 to-teal-600",
+    color: "from-cyan-400 to-white",
   },
   {
     id: 11,
@@ -98,7 +98,7 @@ const techStacks = [
     name: "Node.js",
     category: "Full-Stack Development",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-    color: "from-green-500 to-green-700",
+    color: "from-green-200 to-green-400",
   },
   {
     id: 14,
@@ -114,7 +114,7 @@ const techStacks = [
     name: "MongoDB",
     category: "Database & Tools",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-    color: "from-green-600 to-green-800",
+    color: "from-green-200 to-black/50",
   },
   {
     id: 16,
@@ -123,19 +123,12 @@ const techStacks = [
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
     color: "from-blue-600 to-orange-500",
   },
-  // {
-  //   id: 21,
-  //   name: "SQL",
-  //   category: "Database & Tools",
-  //   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-  //   color: "from-blue-500 to-blue-700"
-  // },
   {
     id: 17,
     name: "Git",
     category: "Database & Tools",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-    color: "from-red-500 to-red-700",
+    color: "from-red-200 to-red-400",
   },
   {
     id: 18,
@@ -158,6 +151,34 @@ const techStacks = [
     icon: "https://cdn.worldvectorlogo.com/logos/jwt-3.svg",
     color: "from-pink-500 to-purple-600",
   },
+  {
+    id: 23,
+    name: "Docker",
+    category: "Database & Tools",
+    icon: "https://cdn.worldvectorlogo.com/logos/docker.svg",
+    color: "from-sky-500 to-blue-700"
+  },
+  {
+    id: 24,
+    name: "Prisma",
+    category: "Database & Tools",
+    icon: "https://cdn.worldvectorlogo.com/logos/prisma-3.svg",
+    color: "from-indigo-500 to-cyan-600"
+  },
+  {
+    id: 25,
+    name: "PostgreSQL",
+    category: "Database & Tools",
+    icon: "https://cdn.worldvectorlogo.com/logos/postgresql.svg",
+    color: "from-blue-500 to-indigo-700"
+  },
+  {
+    id: 26,
+    name: "WebSockets",
+    category: "Database & Tools",
+    icon: "https://cdn-icons-png.flaticon.com/512/1006/1006363.png",
+    color: "from-green-500 to-emerald-700"
+  }
 ];
 
 export default techStacks;

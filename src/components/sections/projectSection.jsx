@@ -8,11 +8,11 @@ const Projects = () => {
   return (
     <div id="projects" className="relative bg-blue-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
       {/* Faded Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none">
           PROJECTS
         </div>
-      </div>
+      </div> */}
 
       {/* Floating Decorative Elements */}
       <div

@@ -6,8 +6,7 @@ const projects = [
   {
     id: 1,
     title: "Academix – Student Management Platform",
-    description:
-      "A modern, responsive web platform designed to simplify academic management for students and faculty. Features include course tracking, assignment management, grade visualization, and secure authentication. Built with a clean UI/UX for intuitive navigation and optimized performance.",
+    description: "Academix is a modern ed-tech platform that empowers students and educators by providing a seamless learning experience. It includes features like course browsing and enrollment, interactive learning content, progress tracking, and secure authentication. Designed with a responsive UI and smooth UX, it ensures easy navigation and accessibility across devices",
     image: `${Academix}`,
     vercelLink: "https://academix-sigma.vercel.app",
     githubLink: "https://github.com/Divyanshguptaj/academix",
@@ -27,17 +26,14 @@ const projects = [
   {
     id: 2,
     title: "RhythmNest – Music Discovery & Visualization",
-    description:
-      "An engaging, interactive music application built with Next.js, offering users the ability to explore trending tracks, visualize beats in real time, and create personalized playlists. Integrates multiple music APIs for fetching detailed song metadata, streaming previews, and generating dynamic waveform animations. Designed with responsive layouts, fast load times, and smooth UI transitions for an immersive listening experience.",
-    image: `${RhythmNest}`, // Replace with actual screenshot URL
-    vercelLink: "https://music-master-hazel.vercel.app/",
+    description: "A responsive music school landing page built with Next.js and TypeScript, styled with shadcn/ui for a clean and modern interface. It features sections for courses, instructors, testimonials, and contact information, with smooth navigation and a focus on accessibility and performance.",    vercelLink: "https://music-master-hazel.vercel.app/",
+    image: `${RhythmNest}`,
     githubLink: "https://github.com/Divyanshguptaj/RhythmNest",
     technologies: [
       "Next.js",
       "React",
       "TypeScript",
       "Tailwind CSS",
-      "Music API Integration",
       "SSR / SSG",
       "Responsive Design",
       "Git",
@@ -50,7 +46,7 @@ const projects = [
     id: 3,
     title: "College Techfest Website",
     description:
-      "A visually appealing and mobile-friendly platform developed to showcase and manage my college’s first-ever tech festival. Includes sections for event categories, schedules, speaker profiles, and sponsors, alongside an interactive contact form. Emphasizes accessibility, optimized performance, and modern design with subtle animations. Served as the central hub for participants and organizers, enhancing engagement and streamlining communication before and during the event.",
+      "A responsive college techfest website built using HTML, CSS, and JavaScript, designed to highlight events, schedules, and fest details with an engaging and modern interface. The site features dedicated sections for event information, registrations, and contact details, with smooth navigation and a focus on accessibility and performance across devices.",    
     image: `${Techfest}`,
     vercelLink: "https://college-techfest-eta.vercel.app",
     githubLink: "https://github.com/Divyanshguptaj/College-Techfest",
@@ -59,12 +55,12 @@ const projects = [
       "CSS3",
       "JavaScript",
       "Responsive Design",
-      "Flexbox",
-      "CSS Grid",
       "UI Animations",
-      "Accessibility",
-      "Git",
-      "Performance Optimization",
+      // "Flexbox",
+      // "CSS Grid",
+      // "Accessibility",
+      // "Git",
+      // "Performance Optimization",
     ],
     category: "Frontend",
     gradient: "from-indigo-500 via-purple-500 to-pink-500",
