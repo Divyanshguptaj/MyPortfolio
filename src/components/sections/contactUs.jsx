@@ -5,19 +5,26 @@ const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleContactClick = () => {
-    const subject = encodeURIComponent("Hello! I'd love to connect with you");
-    const body = encodeURIComponent(`Hi there!
+  const email = "luckys510039@gmail.com";
+  const subject = "Excited to Connect with You!";
+  const body = `
+    Hi there,
 
-    I came across your portfolio and I'm impressed with your work. I would love to discuss potential opportunities or collaborations.
+    I came across your portfolio and was really impressed with your work. 
+    I’d love to explore potential opportunities to collaborate or discuss how we can work together.
 
     Looking forward to hearing from you!
 
-    Best regards,
-    [Your Name]`);
+    Best regards,  
+    [Your Name]  
+  `;
 
-    const mailtoLink = `mailto:luckys510039@gmail.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-  };
+  // Use template literals & encode once
+  const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailtoLink;
+};
+
 
   return (
     <div
