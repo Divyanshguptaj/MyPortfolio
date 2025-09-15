@@ -71,17 +71,17 @@ const Navbar = () => {
       .to('.mobile-menu-container', {
         duration: 0.5,
         opacity: 1,
-        y: 0,
+        x: 0,
         pointerEvents: 'auto',
         ease: 'power3.out'
       })
       .from('.mobile-menu-item', {
-        duration: 0.4,
-        opacity: 0,
-        x: 30,
-        stagger: 0.08,
+        duration: 0.4, // shorter duration
+        // opacity: 0,
+        x: 0,        // slide in from the left
+        stagger: 0.08, // nice staggered effect
         ease: 'power3.out'
-      }, "-=0.3");
+      }, "-=0.2");
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -283,10 +283,10 @@ const Navbar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <div className="relative flex items-center justify-between">
-                    <span className="text-lg font-light text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                    <span className="text-lg font-light text-black group-hover:text-blue-600 transition-colors duration-300">
                       {item.label}
                     </span>
-                    
+                    {/* <p className='text-black'>divynahs</p> */}
                     {/* Mobile menu item accent */}
                     <div 
                       className="shape w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-300"
