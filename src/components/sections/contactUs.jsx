@@ -1,17 +1,42 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Mail, Heart, ArrowRight, Clock, User } from "lucide-react";
 
 const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [animationTriggered, setAnimationTriggered] = useState(false);
+  const container = useRef(null);
+  const headerRef = useRef(null);
+  const cardRef = useRef(null);
+
+  // Intersection Observer for scroll-triggered animations
+  const handleScroll = () => {
+    if (!headerRef.current || animationTriggered) return;
+
+    const rect = headerRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Trigger when element is 80% visible
+    if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
+      setAnimationTriggered(true);
+    }
+  };
+
+  // Add scroll listener
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [animationTriggered]);
 
   const handleContactClick = () => {
-  const email = "luckys510039@gmail.com";
-  const subject = "Excited to Connect with You!";
-  const body = `
+    const email = "luckys510039@gmail.com";
+    const subject = "Excited to Connect with You!";
+    const body = `
     Hi there,
 
     I came across your portfolio and was really impressed with your work. 
-    I’d love to explore potential opportunities to collaborate or discuss how we can work together.
+    I'd love to explore potential opportunities to collaborate or discuss how we can work together.
 
     Looking forward to hearing from you!
 
@@ -19,16 +44,17 @@ const ContactSection = () => {
     [Your Name]  
   `;
 
-  // Use template literals & encode once
-  const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
 
-  window.location.href = mailtoLink;
-};
-
+    window.location.href = mailtoLink;
+  };
 
   return (
     <div
       id="contact"
+      ref={container}
       className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden"
     >
       {/* Enhanced Background Elements matching achievements section */}
@@ -41,23 +67,21 @@ const ContactSection = () => {
         </div>
       </div>
 
-      {/* Enhanced Floating Elements matching achievements style */}
-      <div
-        className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl opacity-20 animate-spin blur-sm"
-        style={{ animationDuration: "8s" }}
-      ></div>
-      <div
-        className="absolute top-1/3 right-20 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 animate-bounce blur-sm"
-        style={{ animationDuration: "4s" }}
-      ></div>
-      <div className="absolute bottom-40 left-1/4 w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 animate-pulse rounded-lg"></div>
-      <div
-        className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce blur-sm"
-        style={{ animationDelay: "2s" }}
-      ></div>
+      {/* Enhanced Floating Elements with continuous animation */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl opacity-20 blur-sm floating-element animate-float-1"></div>
+      <div className="absolute top-1/3 right-20 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 blur-sm floating-element animate-float-2"></div>
+      <div className="absolute bottom-40 left-1/4 w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 rounded-lg floating-element animate-float-3"></div>
+      <div className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 blur-sm floating-element animate-float-4"></div>
 
-      {/* Section Header matching achievements style */}
-      <div className="relative text-center mb-24 z-10">
+      {/* Section Header with scroll-triggered animation */}
+      <div 
+        ref={headerRef}
+        className={`relative text-center mb-24 z-10 transition-all duration-1000 ease-out ${
+          animationTriggered 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-12'
+        }`}
+      >
         <div className="inline-block mb-8">
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 transform hover:scale-105 transition-all duration-500">
             Let's Connect
@@ -70,10 +94,17 @@ const ContactSection = () => {
         </p>
       </div>
 
-      {/* CTA Section */}
+      {/* CTA Section with delayed animation */}
       <div className="relative text-center mt-10 z-10">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-10 shadow-xl border border-white/60">
+          <div 
+            ref={cardRef}
+            className={`bg-white/90 backdrop-blur-xl rounded-3xl p-10 shadow-xl border border-white/60 transition-all duration-1000 ease-out delay-300 ${
+              animationTriggered 
+                ? 'opacity-100 scale-100' 
+                : 'opacity-0 scale-95'
+            }`}
+          >
             <div className="space-y-6">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Heart className="w-6 h-6 text-red-500 animate-pulse" />
@@ -134,10 +165,6 @@ const ContactSection = () => {
                     <Clock className="w-4 h-4" />
                     <span>Quick Response</span>
                   </div>
-                  {/* <div className="flex items-center space-x-2">
-                    <Star className="w-4 h-4 text-yellow-500" />
-                    <span>5-Star Service</span>
-                  </div> */}
                   <div className="flex items-center space-x-2">
                     <User className="w-4 h-4" />
                     <span>Professional</span>
@@ -166,6 +193,48 @@ const ContactSection = () => {
 
         .group:hover .transform-gpu {
           filter: brightness(1.05) contrast(1.05);
+        }
+
+        /* Floating animations */
+        @keyframes float-1 {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          25% { transform: translate(30px, -20px) rotate(5deg); }
+          50% { transform: translate(-20px, -40px) rotate(-3deg); }
+          75% { transform: translate(-30px, 10px) rotate(2deg); }
+        }
+
+        @keyframes float-2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-25px, 30px) scale(1.1); }
+          66% { transform: translate(40px, -15px) scale(0.9); }
+        }
+
+        @keyframes float-3 {
+          0%, 100% { transform: translate(0, 0) rotate(45deg); }
+          25% { transform: translate(20px, 25px) rotate(50deg); }
+          50% { transform: translate(-30px, -20px) rotate(40deg); }
+          75% { transform: translate(15px, -30px) rotate(55deg); }
+        }
+
+        @keyframes float-4 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-40px, 35px) scale(1.2); }
+        }
+
+        .animate-float-1 {
+          animation: float-1 8s ease-in-out infinite;
+        }
+
+        .animate-float-2 {
+          animation: float-2 6s ease-in-out infinite;
+        }
+
+        .animate-float-3 {
+          animation: float-3 10s ease-in-out infinite;
+        }
+
+        .animate-float-4 {
+          animation: float-4 7s ease-in-out infinite;
         }
 
         /* Smooth animations */

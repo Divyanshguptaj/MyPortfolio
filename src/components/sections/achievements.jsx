@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Calendar } from "lucide-react";
 import achievements from "../../data/Achievements";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AchievementsSection = () => {
-  // const [hoveredAchievement, setHoveredAchievement] = useState(null);
+  const container = useRef(null);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [imageOrientations, setImageOrientations] = useState({});
 
@@ -44,9 +49,57 @@ const AchievementsSection = () => {
     document.body.style.overflow = "unset";
   };
 
+  useGSAP(
+    () => {
+      // Animate the main header
+      gsap.from(".section-header", {
+        scrollTrigger: {
+          trigger: ".section-header",
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none none",
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      // Staggered animation for achievement cards
+      gsap.from(".achievement-card", {
+        scrollTrigger: {
+          trigger: ".achievements-grid",
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+
+      // Animate floating decorative elements
+      gsap.utils.toArray(".floating-element").forEach((element) => {
+        gsap.to(element, {
+          x: "random(-50, 50)",
+          y: "random(-50, 50)",
+          scale: "random(0.8, 1.2)",
+          rotate: "random(-30, 30)",
+          duration: "random(5, 10)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      });
+    },
+    { scope: container }
+  );
+
   return (
     <div
       id="achievements"
+      ref={container}
       className="relative bg-blue-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden"
     >
       {/* Faded Background Text */}
@@ -57,22 +110,13 @@ const AchievementsSection = () => {
       </div>
 
       {/* Floating Decorative Elements */}
-      <div
-        className="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg opacity-20 animate-spin"
-        style={{ animationDuration: "6s" }}
-      ></div>
-      <div
-        className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 animate-bounce"
-        style={{ animationDuration: "3s" }}
-      ></div>
-      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 animate-pulse"></div>
-      <div
-        className="absolute bottom-20 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 animate-bounce"
-        style={{ animationDelay: "1.5s" }}
-      ></div>
+      <div className="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg opacity-20 floating-element"></div>
+      <div className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 floating-element"></div>
+      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 floating-element"></div>
+      <div className="absolute bottom-20 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 floating-element"></div>
 
       {/* Section Header */}
-      <div className="relative text-center mb-20 z-10">
+      <div className="relative text-center mb-20 z-10 section-header">
         <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
           My Achievements
         </h2>
@@ -83,7 +127,7 @@ const AchievementsSection = () => {
       </div>
 
       {/* Achievements Grid */}
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto achievements-grid">
         <div className="grid gap-8 md:gap-12 lg:grid-cols-2">
           {achievements.map((achievement, index) => {
             const IconComponent = achievement.icon;
@@ -93,7 +137,7 @@ const AchievementsSection = () => {
             return (
               <div
                 key={achievement.id}
-                className="group relative"
+                className="group relative achievement-card"
                 // onMouseEnter={() => setHoveredAchievement(achievement.id)}
                 // onMouseLeave={() => setHoveredAchievement(null)}
                 onClick={() => openModal(achievement)}

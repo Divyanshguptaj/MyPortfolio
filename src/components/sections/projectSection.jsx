@@ -17,7 +17,6 @@ const Projects = () => {
     let lastActiveImage = images[0]; // Keep track of the currently visible image
 
     // --- Pin the right column ---
-    // The right column will be pinned while the splitContainer is in view
     ScrollTrigger.create({
       trigger: splitContainer,
       start: "top top",
@@ -32,6 +31,8 @@ const Projects = () => {
 
     // --- Create triggers for each text block ---
     textBlocks.forEach((block, index) => {
+      const q = gsap.utils.selector(block); // Create a selector for the current block
+
       ScrollTrigger.create({
         trigger: block,
         start: "top center", // When the top of the text block hits the center
@@ -59,16 +60,39 @@ const Projects = () => {
             });
             // Update the reference to the new active image
             lastActiveImage = images[index];
+
+            // Animate in the text content for the active block
+            gsap.from(q(".animated-text"), {
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: 'power3.out'
+            });
           }
         },
       });
+    });
+
+    // --- Header Animation ---
+    gsap.from(".section-header", {
+      scrollTrigger: {
+        trigger: ".section-header",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: 'power3.out'
     });
 
     // --- CTA Section Animation ---
     gsap.from(".cta-section", {
       scrollTrigger: {
         trigger: ".cta-section",
-        start: "top 90%",
+        start: "top 85%", // When the top of the CTA section is 85% from the top of the viewport
+        toggleActions: "play none none reverse",
       },
       opacity: 0,
       y: 100,
@@ -100,25 +124,25 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="project-text-content mb-[70vh]" // Margin creates scroll distance
+              className="project-text-content mb-[50vh]" // Reduced margin for less scrolling
             >
-              <span className={`inline-block mb-6 px-4 py-2 rounded-full text-sm font-bold tracking-wider uppercase bg-gradient-to-r ${project.gradient} text-white shadow-lg`}>
+              <span className={`animated-text inline-block mb-6 px-4 py-2 rounded-full text-sm font-bold tracking-wider uppercase bg-gradient-to-r ${project.gradient} text-white shadow-lg`}>
                 {project.category}
               </span>
-              <h3 className="text-3xl md:text-4xl font-bold text-[#343d38] mb-6">
+              <h3 className="animated-text text-3xl md:text-4xl font-bold text-[#343d38] mb-6">
                 {project.title}
               </h3>
-              <p className="text-gray-700 mb-8 leading-relaxed text-base md:text-lg">
+              <p className="animated-text text-gray-700 mb-8 leading-relaxed text-base md:text-lg">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="animated-text flex flex-wrap gap-3 mb-8">
                 {project.technologies.map((tech, techIndex) => (
                   <span key={techIndex} className="relative px-4 py-2 bg-gradient-to-r from-white to-gray-50 text-[#343d38] rounded-full text-sm font-semibold border border-gray-200 shadow-sm">
                     {tech}
                   </span>
                 ))}
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="animated-text flex flex-col sm:flex-row gap-4">
                 <a href={project.vercelLink} target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative px-4 py-3 bg-gradient-to-r from-[#4e45d5] to-purple-600 text-white rounded-xl font-semibold text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                   🚀 Live Demo
                 </a>
@@ -135,7 +159,7 @@ const Projects = () => {
         {/* Right Column: Sticky Image */}
         <div className="right-column hidden lg:block h-screen">
           <div className="relative w-full h-full flex items-center justify-center">
-            <div className="relative w-full max-w-lg h-auto rounded-3xl shadow-2xl border-8 border-white/80 bg-gray-200 aspect-[4/3]">
+            <div className="relative w-full max-w-2xl h-auto rounded-3xl shadow-2xl border-8 border-white/80 bg-gray-200 aspect-video">
               {projects.map((project) => (
                 <div
                   key={`image-${project.id}`}
