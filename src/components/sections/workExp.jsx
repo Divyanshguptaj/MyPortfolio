@@ -1,156 +1,251 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import links from "../../data/DownloadLinks";
 import experiences from "../../data/WorkExperience";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const WorkExperience = () => {
+  const container = useRef(null);
+
+  useGSAP(() => {
+    // --- Section Entrance Animation ---
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.from(
+      ".section-header h2, .section-header .divider, .section-header p",
+      {
+        opacity: 0,
+        y: 50,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power3.out",
+      }
+    )
+      .from(
+        ".experience-card",
+        {
+          opacity: 0,
+          y: 100,
+          stagger: 0.2,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.5"
+      )
+      .from(
+        ".deco-shape",
+        {
+          opacity: 0,
+          scale: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: "elastic.out(1, 0.5)",
+        },
+        "<"
+      );
+
+    // --- Continuous Floating Animations for Decorative Shapes ---
+    gsap.to(".deco-1", {
+      y: -20,
+      rotation: 15,
+      yoyo: true,
+      repeat: -1,
+      duration: 4,
+      ease: "sine.inOut",
+    });
+    gsap.to(".deco-2", {
+      rotation: 360,
+      repeat: -1,
+      duration: 15,
+      ease: "none",
+    });
+    gsap.to(".deco-3", {
+      y: 20,
+      x: -10,
+      yoyo: true,
+      repeat: -1,
+      duration: 5,
+      ease: "sine.inOut",
+    });
+    gsap.to(".deco-4", {
+      y: -15,
+      x: 15,
+      yoyo: true,
+      repeat: -1,
+      duration: 3,
+      ease: "sine.inOut",
+      delay: 1,
+    });
+
+    // --- Interactive 3D Card Hover Effect ---
+    const cards = gsap.utils.toArray(".experience-card");
+    cards.forEach((card) => {
+      const q = gsap.utils.selector(card);
+      const cardContent = q(".card-content");
+      const cardShadow = q(".card-shadow");
+      const cardGlow = q(".card-glow");
+      const cardBadge = q(".card-badge");
+
+      const hoverTimeline = gsap
+        .timeline({ paused: true })
+        .to(card, { scale: 1.03, duration: 0.5, ease: "power3.out" })
+        .to(
+          cardShadow,
+          { opacity: 0.5, scale: 1.05, duration: 0.5, ease: "power3.out" },
+          "<"
+        )
+        .to(cardGlow, { opacity: 0.7, duration: 0.5, ease: "power3.out" }, "<")
+        .to(cardBadge, { scale: 1.1, y: -5, duration: 0.4, ease: "back.out(2)" }, "<");
+
+      card.addEventListener("mouseenter", () => hoverTimeline.play());
+      card.addEventListener("mouseleave", () => hoverTimeline.reverse());
+
+      card.addEventListener("mousemove", (e) => {
+        const { left, top, width, height } = card.getBoundingClientRect();
+        const x = e.clientX - left;
+        const y = e.clientY - top;
+        const rotateX = gsap.utils.mapRange(0, height, -8, 8)(y);
+        const rotateY = gsap.utils.mapRange(0, width, 8, -8)(x);
+
+        gsap.to(cardContent, {
+          rotationX: rotateX,
+          rotationY: rotateY,
+          transformPerspective: 1000,
+          duration: 0.5,
+          ease: "power3.out",
+        });
+      });
+
+      card.addEventListener("mouseleave", () => {
+        gsap.to(cardContent, {
+          rotationX: 0,
+          rotationY: 0,
+          duration: 0.7,
+          ease: "elastic.out(1, 0.5)",
+        });
+      });
+    });
+
+    // --- CTA Button Animation ---
+    const ctaButton = ".cta-button";
+    gsap.from(ctaButton, {
+      scrollTrigger: {
+        trigger: ctaButton,
+        start: "top 90%",
+      },
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+      duration: 1,
+      ease: "elastic.out(1, 0.75)",
+    });
+  }, { scope: container });
+
   return (
     <div
       id="experience"
-      className="relative bg-indigo-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden"
+      ref={container}
+      className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden"
     >
-      {/* Faded Background Text */}
-      {/* <div className="absolute bottom-[50px] left-1/4 -translate-x-1/2 pointer-events-none">
-        <div className="text-5xl xl:text-[7rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none">
-          EXPERIENCE
-        </div>
-      </div> */}
-
       {/* Floating Decorative Elements */}
-      <div
-        className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-bounce"
-        style={{ animationDuration: "3s" }}
-      ></div>
-      <div
-        className="absolute top-1/4 right-10 w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 transform rotate-45 opacity-30 animate-spin"
-        style={{ animationDuration: "8s" }}
-      ></div>
-      <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-25 animate-pulse"></div>
-      <div
-        className="absolute bottom-10 right-1/3 w-8 h-8 bg-gradient-to-r from-green-400 to-teal-400 transform rotate-12 opacity-30 animate-bounce"
-        style={{ animationDelay: "1s" }}
-      ></div>
+      <div className="deco-shape deco-1 absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20"></div>
+      <div className="deco-shape deco-2 absolute top-1/4 right-10 w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 transform rotate-45 opacity-30"></div>
+      <div className="deco-shape deco-3 absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-25"></div>
+      <div className="deco-shape deco-4 absolute bottom-10 right-1/3 w-8 h-8 bg-gradient-to-r from-green-400 to-teal-400 transform rotate-12 opacity-30"></div>
 
       {/* Section Header */}
-      <div className="relative text-center mb-20 z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
+      <div className="section-header relative text-center mb-20 z-10">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-[#4e45d5] font-bold mb-6">
           Work Experience
         </h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
-        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-medium">
+        <div className="divider w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full"></div>
+        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-normal">
           My journey through the world of software development
         </p>
       </div>
 
       {/* Experience Cards */}
       <div className="relative max-w-6xl mx-auto">
-        <div className="grid gap-8 md:gap-12">
-          {experiences.map((exp, index) => (
+        <div className="grid gap-12 md:gap-16">
+          {experiences.map((exp) => (
             <div
               key={exp.id}
-              className="group relative"
-              style={{
-                animationDelay: `${index * 0.2}s`,
-              }}
+              className="experience-card group relative"
+              style={{ perspective: "1000px" }}
             >
-              {/* Card Container with 3D Effect */}
-              <div className="relative perspective-1000">
+              <div
+                className="card-content relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/50 shadow-lg"
+                style={{ transformStyle: "preserve-3d" }}
+              >
                 <div
-                  className={`relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden transform-gpu transition-all duration-700 hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-xl group-hover:shadow-[#4e45d5]/20 border border-white/50`}
-                >
-                  {/* Gradient Background Overlay */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}
-                  ></div>
-
-                  {/* Animated Border */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-[#4e45d5]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-
-                  {/* Card Content */}
-                  <div className="relative p-8 md:p-10 z-10">
-                    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-                      {/* Left Side - Company Info */}
-                      <div className="lg:w-1/3">
-                        {/* Type Badge with Glow */}
-                        <div className="inline-block mb-4">
-                          <span
-                            className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase bg-gradient-to-r ${exp.gradient} text-white shadow-lg group-hover:shadow-xl transform group-hover:scale-110 transition-all duration-300`}
-                          >
-                            {exp.type === "current"
-                              ? "✨ CURRENT"
-                              : exp.type === "internship"
-                              ? "🎓 INTERNSHIP"
-                              : "💼 PREVIOUS"}
-                          </span>
-                        </div>
-
-                        {/* Company Name with Animation */}
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] mb-2 group-hover:text-[#4e45d5] transition-colors duration-300 transform group-hover:translate-x-2">
-                          {exp.company}
-                        </h3>
-
-                        {/* Duration & Location */}
-                        <div className="space-y-2 text-gray-600">
-                          <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 bg-[#4e45d5] rounded-full animate-pulse"></span>
-                            <span className="font-semibold">
-                              {exp.duration}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
-                            <span>{exp.location}</span>
-                          </div>
-                        </div>
+                  className={`card-glow absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-0 transition-opacity duration-500`}
+                ></div>
+                <div className="relative p-8 md:p-10 z-10 bg-white/80">
+                  <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+                    <div className="lg:w-1/3">
+                      <div className="inline-block mb-4">
+                        <span
+                          className={`card-badge px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase bg-gradient-to-r ${exp.gradient} text-white shadow-lg`}
+                        >
+                          {exp.type === "current"
+                            ? "✨ CURRENT"
+                            : exp.type === "internship"
+                            ? "🎓 INTERNSHIP"
+                            : "💼 PREVIOUS"}
+                        </span>
                       </div>
-
-                      {/* Right Side - Role Details */}
-                      <div className="lg:w-2/3">
-                        {/* Position Title */}
-                        <h4 className="text-xl md:text-2xl font-bold text-[#4e45d5] mb-4 transform group-hover:translate-x-2 transition-transform duration-300">
-                          {exp.position}
-                        </h4>
-
-                        {/* Description */}
-                        <p className="text-gray-700 mb-6 leading-relaxed text-sm md:text-base group-hover:text-gray-800 transition-colors duration-300">
-                          {exp.description}
-                        </p>
-
-                        {/* Skills with Enhanced Effects */}
-                        <div className="flex flex-wrap gap-3">
-                          {exp.skills.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="relative px-4 py-2 bg-gradient-to-r from-white to-gray-50 text-[#343d38] rounded-full text-xs md:text-sm font-semibold border border-gray-200 hover:border-[#4e45d5] transform hover:scale-110 hover:-translate-y-1 transition-all duration-300 cursor-pointer group/skill shadow-sm hover:shadow-lg"
-                              style={{
-                                animationDelay: `${skillIndex * 0.1}s`,
-                              }}
-                            >
-                              {skill}
-                              {/* Skill hover effect */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-[#4e45d5] to-purple-500 rounded-full opacity-0 group-hover/skill:opacity-10 transition-opacity duration-300"></div>
-                            </span>
-                          ))}
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] mb-2">
+                        {exp.company}
+                      </h3>
+                      <div className="space-y-2 text-gray-600">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-[#4e45d5] rounded-full"></span>
+                          <span className="font-semibold">{exp.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
+                          <span>{exp.location}</span>
                         </div>
                       </div>
                     </div>
-
-                    {/* Bottom Glow Effect */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4e45d5] to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                    <div className="lg:w-2/3">
+                      <h4 className="text-xl md:text-2xl font-bold text-[#4e45d5] mb-4">
+                        {exp.position}
+                      </h4>
+                      <p className="text-gray-700 mb-6 leading-relaxed text-sm md:text-base">
+                        {exp.description}
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        {exp.skills.map((skill, skillIndex) => (
+                          <span
+                            key={skillIndex}
+                            className="px-4 py-2 bg-gray-100 text-[#343d38] rounded-full text-xs md:text-sm font-semibold border border-gray-200"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Card Reflection Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/0 via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                 </div>
-
-                {/* 3D Shadow Effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${exp.gradient} rounded-2xl transform translate-x-2 translate-y-2 opacity-20 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:opacity-30 transition-all duration-500 -z-10`}
-                ></div>
               </div>
+              <div
+                className={`card-shadow absolute inset-0 bg-gradient-to-br ${exp.gradient} rounded-2xl transform translate-y-4 opacity-20 blur-lg -z-10`}
+              ></div>
             </div>
           ))}
         </div>
       </div>
+
       {/* Bottom Call-to-Action */}
       <div className="relative text-center mt-20 z-10">
         <a
@@ -158,7 +253,7 @@ const WorkExperience = () => {
           download
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative px-10 py-4 bg-transparent border-none cursor-pointer inline-block"
+          className="cta-button group relative px-10 py-4 bg-transparent border-none cursor-pointer inline-block"
         >
           <span className="relative z-10 text-gray-100 font-bold text-lg whitespace-nowrap">
             Download Resume
@@ -167,46 +262,6 @@ const WorkExperience = () => {
           <div className="absolute translate-x-3 translate-y-3 w-12 h-12 bg-gradient-to-r from-[#4e45d5]/20 to-purple-500/20 backdrop-blur-sm rounded-full transition-all duration-500 group-hover:rounded-xl group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
         </a>
       </div>
-
-      {/* Enhanced Custom CSS */}
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        @keyframes floatSlow {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(5deg);
-          }
-        }
-
-        @keyframes gradientShift {
-          0%,
-          100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        .group:hover .animate-shimmer {
-          animation: shimmer 2s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };

@@ -2,7 +2,7 @@ const experiences = [
   {
     id: 1,
     company: "Securify Shield",
-    position: "Frontend Developer Intern",
+    position: "Software Developer Intern",
     duration: "2025 (3 months)",
     location: "Remote",
     description:
