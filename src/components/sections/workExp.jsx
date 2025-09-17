@@ -1,14 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import links from "../../data/DownloadLinks";
 import experiences from "../../data/WorkExperience";
+import { ThemeContext } from "../../App";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WorkExperience = () => {
   const container = useRef(null);
+  const { theme } = useContext(ThemeContext);
 
   useGSAP(() => {
     // --- Section Entrance Animation ---
@@ -154,21 +156,21 @@ const WorkExperience = () => {
     <div
       id="experience"
       ref={container}
-      className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden"
+      className="relative bg-indigo-50 dark:bg-black/20 py-20 px-4 md:px-8 font-sans overflow-hidden transition-colors duration-500"
     >
       {/* Floating Decorative Elements */}
-      <div className="deco-shape deco-1 absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20"></div>
-      <div className="deco-shape deco-2 absolute top-1/4 right-10 w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 transform rotate-45 opacity-30"></div>
-      <div className="deco-shape deco-3 absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-25"></div>
-      <div className="deco-shape deco-4 absolute bottom-10 right-1/3 w-8 h-8 bg-gradient-to-r from-green-400 to-teal-400 transform rotate-12 opacity-30"></div>
+      <div className="deco-shape deco-1 absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 dark:opacity-10"></div>
+      <div className="deco-shape deco-2 absolute top-1/4 right-10 w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 transform rotate-45 opacity-30 dark:opacity-15"></div>
+      <div className="deco-shape deco-3 absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-25 dark:opacity-10"></div>
+      <div className="deco-shape deco-4 absolute bottom-10 right-1/3 w-8 h-8 bg-gradient-to-r from-green-400 to-teal-400 transform rotate-12 opacity-30 dark:opacity-10"></div>
 
       {/* Section Header */}
       <div className="section-header relative text-center mb-20 z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-[#4e45d5] font-bold mb-6">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-[#4e45d5] dark:text-blue-300 font-bold mb-6">
           Work Experience
         </h2>
-        <div className="divider w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full"></div>
-        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-normal">
+        <div className="divider w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 mx-auto rounded-full"></div>
+        <p className="text-lg md:text-xl text-[#343d38] dark:text-gray-200 mt-8 max-w-2xl mx-auto font-normal">
           My journey through the world of software development
         </p>
       </div>
@@ -183,13 +185,13 @@ const WorkExperience = () => {
               style={{ perspective: "1000px" }}
             >
               <div
-                className="card-content relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/50 shadow-lg"
+                className="card-content relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/50 dark:border-gray-700 shadow-lg"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <div
                   className={`card-glow absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-0 transition-opacity duration-500`}
                 ></div>
-                <div className="relative p-8 md:p-10 z-10 bg-white/80">
+                <div className="relative p-8 md:p-10 z-10 bg-white/80 dark:bg-gray-900/80">
                   <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
                     <div className="lg:w-1/3">
                       <div className="inline-block mb-4">
@@ -203,32 +205,32 @@ const WorkExperience = () => {
                             : "💼 PREVIOUS"}
                         </span>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] mb-2">
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] dark:text-white mb-2">
                         {exp.company}
                       </h3>
-                      <div className="space-y-2 text-gray-600">
+                      <div className="space-y-2 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 bg-[#4e45d5] rounded-full"></span>
+                          <span className="w-2 h-2 bg-[#4e45d5] dark:bg-blue-400 rounded-full"></span>
                           <span className="font-semibold">{exp.duration}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
+                          <span className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full"></span>
                           <span>{exp.location}</span>
                         </div>
                       </div>
                     </div>
                     <div className="lg:w-2/3">
-                      <h4 className="text-xl md:text-2xl font-bold text-[#4e45d5] mb-4">
+                      <h4 className="text-xl md:text-2xl font-bold text-[#4e45d5] dark:text-blue-300 mb-4">
                         {exp.position}
                       </h4>
-                      <p className="text-gray-700 mb-6 leading-relaxed text-sm md:text-base">
+                      <p className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed text-sm md:text-base">
                         {exp.description}
                       </p>
                       <div className="flex flex-wrap gap-3">
                         {exp.skills.map((skill, skillIndex) => (
                           <span
                             key={skillIndex}
-                            className="px-4 py-2 bg-gray-100 text-[#343d38] rounded-full text-xs md:text-sm font-semibold border border-gray-200"
+                            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-[#343d38] dark:text-gray-100 rounded-full text-xs md:text-sm font-semibold border border-gray-200 dark:border-gray-600"
                           >
                             {skill}
                           </span>
@@ -255,11 +257,11 @@ const WorkExperience = () => {
           rel="noopener noreferrer"
           className="cta-button group relative px-10 py-4 bg-transparent border-none cursor-pointer inline-block"
         >
-          <span className="relative z-10 text-gray-100 font-bold text-lg whitespace-nowrap">
+          <span className="relative z-10 text-gray-100 dark:text-gray-900 font-bold text-lg whitespace-nowrap">
             Download Resume
           </span>
-          <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-r from-[#28282d] to-gray-800 rounded-xl transition-all duration-500 group-hover:translate-x-[8%] group-hover:translate-y-[25%] group-hover:w-[115%] group-hover:h-[115%] -z-10 shadow-lg"></div>
-          <div className="absolute translate-x-3 translate-y-3 w-12 h-12 bg-gradient-to-r from-[#4e45d5]/20 to-purple-500/20 backdrop-blur-sm rounded-full transition-all duration-500 group-hover:rounded-xl group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
+          <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-r from-[#28282d] to-gray-800 dark:from-blue-200 dark:to-blue-400 rounded-xl transition-all duration-500 group-hover:translate-x-[8%] group-hover:translate-y-[25%] group-hover:w-[115%] group-hover:h-[115%] -z-10 shadow-lg"></div>
+          <div className="absolute translate-x-3 translate-y-3 w-12 h-12 bg-gradient-to-r from-[#4e45d5]/20 to-purple-500/20 dark:from-blue-900/20 dark:to-purple-900/20 backdrop-blur-sm rounded-full transition-all duration-500 group-hover:rounded-xl group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
         </a>
       </div>
     </div>

@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Mail, Heart, ArrowRight, Clock, User } from "lucide-react";
+import { ThemeContext } from "../../App";
 
 const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -7,6 +8,7 @@ const ContactSection = () => {
   const container = useRef(null);
   const headerRef = useRef(null);
   const cardRef = useRef(null);
+  const { theme } = useContext(ThemeContext);
 
   // Intersection Observer for scroll-triggered animations
   const handleScroll = () => {
@@ -55,17 +57,17 @@ const ContactSection = () => {
     <div
       id="contact"
       ref={container}
-      className="relative bg-indigo-50 py-20 px-4 md:px-8 font-sans overflow-hidden"
+      className="relative bg-indigo-50 dark:bg-black/20 py-20 px-4 md:px-8 font-sans overflow-hidden transition-colors duration-500"
     >
       {/* Enhanced Background Elements matching achievements section */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
       {/* Faded Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 bg-clip-text text-transparent opacity-40 select-none">
+      {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 bg-clip-text text-transparent opacity-40 select-none">
           CONTACT
         </div>
-      </div>
+      </div> */}
 
       {/* Enhanced Floating Elements with continuous animation */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl opacity-20 blur-sm floating-element animate-float-1"></div>
@@ -83,12 +85,12 @@ const ContactSection = () => {
         }`}
       >
         <div className="inline-block mb-8">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 transform hover:scale-105 transition-all duration-500">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 bg-clip-text text-transparent mb-6 transform hover:scale-105 transition-all duration-500">
             Let's Connect
           </h2>
-          <div className="w-40 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse shadow-lg"></div>
+          <div className="w-40 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 mx-auto rounded-full animate-pulse shadow-lg"></div>
         </div>
-        <p className="text-xl md:text-2xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-200 mt-8 max-w-3xl mx-auto font-medium leading-relaxed">
           Ready to bring your ideas to life? Let's discuss how we can work
           together
         </p>
@@ -99,7 +101,7 @@ const ContactSection = () => {
         <div className="max-w-2xl mx-auto">
           <div 
             ref={cardRef}
-            className={`bg-white/90 backdrop-blur-xl rounded-3xl p-10 shadow-xl border border-white/60 transition-all duration-1000 ease-out delay-300 ${
+            className={`bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-10 shadow-xl border border-white/60 dark:border-gray-700 transition-all duration-1000 ease-out delay-300 ${
               animationTriggered 
                 ? 'opacity-100 scale-100' 
                 : 'opacity-0 scale-95'
@@ -108,17 +110,17 @@ const ContactSection = () => {
             <div className="space-y-6">
               <div className="flex items-center justify-center space-x-2 mb-4">
                 <Heart className="w-6 h-6 text-red-500 animate-pulse" />
-                <span className="text-gray-700 font-medium text-lg">
+                <span className="text-gray-700 dark:text-gray-200 font-medium text-lg">
                   Ready to start your project?
                 </span>
                 <Heart className="w-6 h-6 text-red-500 animate-pulse" />
               </div>
 
-              <h3 className="text-3xl font-black text-gray-800 mb-4">
+              <h3 className="text-3xl font-black text-gray-800 dark:text-white mb-4">
                 Let's Build Something Amazing Together!
               </h3>
 
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
                 Whether you have a clear vision or just an idea, I'm here to
                 help turn your dreams into reality. Let's discuss your project
                 and see how we can collaborate.
@@ -130,13 +132,13 @@ const ContactSection = () => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl opacity-30 blur group-hover:opacity-60 group-hover:blur-lg transition-all duration-500"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 rounded-2xl opacity-30 blur group-hover:opacity-60 group-hover:blur-lg transition-all duration-500"></div>
 
                 <button
                   onClick={handleContactClick}
-                  className="relative flex items-center justify-center px-12 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-black text-xl rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20 group overflow-hidden"
+                  className="relative flex items-center justify-center px-12 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-blue-700 dark:via-purple-900 dark:to-pink-900 text-white font-black text-xl rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20 dark:border-gray-700 group overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 dark:from-blue-700 dark:via-purple-900 dark:to-pink-900 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                   <div className="relative flex items-center space-x-3 z-10">
                     <Mail
@@ -159,8 +161,8 @@ const ContactSection = () => {
                 </button>
               </div>
 
-              <div className="pt-6 border-t border-gray-200 mt-8">
-                <div className="flex items-center justify-center space-x-6 text-sm text-gray-500">
+              <div className="pt-6 border-t border-gray-200 dark:border-gray-700 mt-8">
+                <div className="flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-2">
                     <Clock className="w-4 h-4" />
                     <span>Quick Response</span>

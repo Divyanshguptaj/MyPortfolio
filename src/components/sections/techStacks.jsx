@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import techStacks from "../../data/TechStacks";
+import { ThemeContext } from "../../App";
 
 const TechStack = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
   const [bubbleSize, setBubbleSize] = useState(500);
+  const { theme } = useContext(ThemeContext);
 
   // Update bubble size based on screen size
   useEffect(() => {
@@ -143,10 +145,10 @@ const TechStack = () => {
 
 
   return (
-    <div id="skills" className="relative bg-indigo-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden">
+    <div id="skills" className="relative bg-indigo-50 dark:bg-black/20 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden transition-colors duration-500">
       {/* Faded Background Text */}
       {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none transform -rotate-12">
+        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 dark:text-gray-700 opacity-30 blur-[3px] select-none transform -rotate-12">
           TECH STACK
         </div>
       </div> */}
@@ -159,11 +161,11 @@ const TechStack = () => {
 
       {/* Section Header */}
       <div className="relative text-center mb-16 z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] dark:text-blue-300 font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
           Tech Stack
         </h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
-        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-medium">
+        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 mx-auto rounded-full animate-pulse"></div>
+        <p className="text-lg md:text-xl text-[#343d38] dark:text-gray-200 mt-8 max-w-2xl mx-auto font-medium">
           Technologies I work with to bring ideas to life
         </p>
       </div>
@@ -176,15 +178,15 @@ const TechStack = () => {
             <div className="absolute inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-500/20 animate-pulse"></div>
             
             {/* Main Bubble Container */}
-            <div className="absolute inset-6 rounded-full bg-gradient-to-br from-white/60 via-blue-50/80 to-purple-50/60 backdrop-blur-lg border-2 border-white/60 shadow-2xl overflow-hidden">
+            <div className="absolute inset-6 rounded-full bg-gradient-to-br from-white/60 via-blue-50/80 to-purple-50/60 dark:from-gray-800/60 dark:via-gray-900/80 dark:to-gray-900/60 backdrop-blur-lg border-2 border-white/60 dark:border-gray-700 shadow-2xl overflow-hidden">
               {/* Inner Glow */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/30 to-white/50 opacity-70"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/30 to-white/50 dark:via-gray-700 dark:to-gray-900 opacity-70"></div>
               
               {/* Floating particles effect */}
               {[...Array(12)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-3 h-3 bg-gradient-to-r from-[#4e45d5]/20 to-purple-400/20 rounded-full animate-pulse"
+                  className="absolute w-3 h-3 bg-gradient-to-r from-[#4e45d5]/20 to-purple-400/20 dark:from-blue-400/20 dark:to-purple-700/20 rounded-full animate-pulse"
                   style={{
                     left: `${10 + (i * 7)}%`,
                     top: `${10 + (i * 6)}%`,
@@ -208,16 +210,16 @@ const TechStack = () => {
             </div>
             
             {/* Pulse rings */}
-            <div className="absolute inset-0 rounded-full border-2 border-[#4e45d5]/25 animate-ping" style={{ animationDuration: '4s' }}></div>
-            <div className="absolute inset-3 rounded-full border border-purple-400/30 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
-            <div className="absolute inset-5 rounded-full border border-cyan-400/20 animate-ping" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
+            <div className="absolute inset-0 rounded-full border-2 border-[#4e45d5]/25 dark:border-blue-400/25 animate-ping" style={{ animationDuration: '4s' }}></div>
+            <div className="absolute inset-3 rounded-full border border-purple-400/30 dark:border-purple-700/30 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+            <div className="absolute inset-5 rounded-full border border-cyan-400/20 dark:border-cyan-700/20 animate-ping" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
           </div>
         </div>
       </div>
 
       {/* Tech Categories List */}
       <div className="relative max-w-6xl mx-auto z-10">
-        <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] text-center mb-12">
+        <h3 className="text-2xl md:text-3xl font-bold text-[#343d38] dark:text-white text-center mb-12">
           Categories & Technologies
         </h3>
         
@@ -225,16 +227,16 @@ const TechStack = () => {
           {categories.map((category, categoryIndex) => (
             <div 
               key={category}
-              className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/50"
+              className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/50 dark:border-gray-700"
               style={{
                 animationDelay: `${categoryIndex * 0.1}s`
               }}
             >
               {/* Category Gradient Background */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#4e45d5]/5 to-purple-500/5 group-hover:from-[#4e45d5]/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#4e45d5]/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-700/10 group-hover:from-[#4e45d5]/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
               
               <div className="relative z-10">
-                <h4 className="text-lg font-bold text-[#4e45d5] mb-4 group-hover:text-purple-600 transition-colors duration-300">
+                <h4 className="text-lg font-bold text-[#4e45d5] dark:text-blue-300 mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                   {category}
                 </h4>
                 
@@ -244,7 +246,7 @@ const TechStack = () => {
                     .map((tech, techIndex) => (
                       <div 
                         key={tech.id}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/60 transition-all duration-300 group/item"
+                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/60 dark:hover:bg-gray-700 transition-all duration-300 group/item"
                         style={{
                           animationDelay: `${techIndex * 0.05}s`
                         }}
@@ -256,7 +258,7 @@ const TechStack = () => {
                             className="w-full h-full object-contain group-hover/item:scale-110 transition-transform duration-300"
                           />
                         </div>
-                        <span className="text-[#343d38] font-medium text-sm group-hover/item:text-[#4e45d5] transition-colors duration-300">
+                        <span className="text-[#343d38] dark:text-gray-100 font-medium text-sm group-hover/item:text-[#4e45d5] dark:group-hover/item:text-blue-400 transition-colors duration-300">
                           {tech.name}
                         </span>
                       </div>
@@ -265,7 +267,7 @@ const TechStack = () => {
               </div>
               
               {/* Bottom Glow Effect */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4e45d5] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-500 rounded-b-2xl"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4e45d5] to-transparent dark:via-blue-400 opacity-0 group-hover:opacity-60 transition-opacity duration-500 rounded-b-2xl"></div>
             </div>
           ))}
         </div>

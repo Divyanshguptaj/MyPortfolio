@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import { ThemeContext } from "../../App"; // Add this import
 import UserImage from "../../assets/HeroSection/UserImage.jpg";
 import SunHero from "../../assets/HeroSection/SunHero.png";
 import DotsHero from "../../assets/HeroSection/DotsHero.png";
@@ -9,6 +10,7 @@ import CubeHero from "../../assets/HeroSection/CubeHero.png";
 
 const HeroSection = () => {
   const container = useRef(null);
+  const { theme } = useContext(ThemeContext); // Add this line
 
   useGSAP(() => {
     // Entrance animations for text content
@@ -68,28 +70,28 @@ const HeroSection = () => {
     <div ref={container} id="about" className="relative flex flex-col lg:flex-row justify-center items-center min-h-[80vh] px-4 md:px-8 gap-4 overflow-hidden pt-16 lg:pt-20">
       {/* Faded Background Text */}
       <div className="absolute inset-0 flex items-end justify-start pointer-events-none">
-        <div className="text-2xl sm:text-3xl md:text-4xl xl:text-8xl font-bold text-gray-400 opacity-10 blur-sm select-none ml-2 sm:ml-4 mb-2 sm:mb-4">
+        <div className="text-2xl sm:text-3xl md:text-4xl xl:text-8xl font-bold text-gray-400 dark:text-gray-400 opacity-10 blur-sm select-none ml-2 sm:ml-4 mb-2 sm:mb-4">
           Divyansh Gupta
         </div>
       </div>
 
       {/* Hero Left */}
       <div className="flex flex-col justify-center items-center lg:items-start gap-4 sm:gap-6 lg:gap-8 w-full lg:w-2/5 z-10 text-center lg:text-left px-2">
-        <div className="hero-title text-2xl sm:text-3xl md:text-4xl xl:text-6xl text-[#343d38] font-medium leading-tight">
+        <div className="hero-title text-2xl sm:text-3xl md:text-4xl xl:text-6xl text-[#343d38] dark:text-gray-100 font-medium leading-tight">
           Divyansh Gupta
         </div>
-        <div className="hero-subtitle text-xl sm:text-2xl md:text-3xl xl:text-5xl leading-tight">
-          I am a <span className="text-[#4e45d5] font-display tracking-wider">Developer</span>
+        <div className="hero-subtitle text-xl sm:text-2xl md:text-3xl xl:text-5xl leading-tight dark:text-blue-300">
+          I am a <span className="text-[#4e45d5] dark:text-blue-400 font-display tracking-wider">Developer</span>
         </div>
-        <div className="hero-description text-sm sm:text-base md:text-lg w-full lg:w-4/5 font-medium leading-relaxed max-w-md lg:max-w-none">
-          I’m a passionate Software Developer specializing in building scalable web applications and crafting innovative digital solutions, showcasing my skills and projects that reflect my journey and expertise.
+        <div className="hero-description text-sm sm:text-base md:text-lg w-full lg:w-4/5 font-medium leading-relaxed max-w-md lg:max-w-none text-gray-700 dark:text-gray-300">
+          I'm a passionate Software Developer specializing in building scalable web applications and crafting innovative digital solutions, showcasing my skills and projects that reflect my journey and expertise.
         </div>
         <button className="hero-button group relative px-6 sm:px-8 py-3 bg-transparent border-none cursor-pointer mt-2">
-          <span className="relative z-10 text-gray-100 font-medium text-sm sm:text-base whitespace-nowrap">
+          <span className="relative z-10 text-gray-100 dark:text-gray-900 font-medium text-sm sm:text-base whitespace-nowrap">
             Hire Me
           </span>
-          <div className="absolute bottom-0 right-0 w-full h-full bg-[#28282d] rounded-lg transition-all duration-400 group-hover:translate-x-[5%] group-hover:translate-y-[20%] group-hover:w-[110%] group-hover:h-[110%] -z-10"></div>
-          <div className="absolute translate-x-2.5 translate-y-2.5 w-9 h-9 bg-white/40 backdrop-blur-sm rounded-full transition-all duration-400 group-hover:rounded-lg group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
+          <div className="absolute bottom-0 right-0 w-full h-full bg-[#28282d] dark:bg-blue-200 rounded-lg transition-all duration-400 group-hover:translate-x-[5%] group-hover:translate-y-[20%] group-hover:w-[110%] group-hover:h-[110%] -z-10"></div>
+          <div className="absolute translate-x-2.5 translate-y-2.5 w-9 h-9 bg-white/40 dark:bg-blue-900/40 backdrop-blur-sm rounded-full transition-all duration-400 group-hover:rounded-lg group-hover:translate-x-0 group-hover:translate-y-0 group-hover:w-full group-hover:h-full -z-20"></div>
         </button>
       </div>
 

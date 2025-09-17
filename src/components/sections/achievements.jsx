@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Calendar } from "lucide-react";
 import achievements from "../../data/Achievements";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ThemeContext } from "../../App";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ const AchievementsSection = () => {
   const container = useRef(null);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [imageOrientations, setImageOrientations] = useState({});
+  const { theme } = useContext(ThemeContext);
 
   // Detect image orientations on component mount
   useEffect(() => {
@@ -100,28 +102,28 @@ const AchievementsSection = () => {
     <div
       id="achievements"
       ref={container}
-      className="relative bg-blue-50 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden"
+      className="relative bg-blue-50 dark:bg-gray-900 py-20 px-4 md:px-8 font-['Be_Vietnam_Pro'] overflow-hidden transition-colors duration-500"
     >
       {/* Faded Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 opacity-30 blur-[3px] select-none">
+      {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-400 dark:text-gray-700 opacity-30 blur-[3px] select-none">
           ACHIEVEMENTS
         </div>
-      </div>
+      </div> */}
 
       {/* Floating Decorative Elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg opacity-20 floating-element"></div>
-      <div className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 floating-element"></div>
-      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 floating-element"></div>
-      <div className="absolute bottom-20 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 floating-element"></div>
+      <div className="absolute top-20 left-10 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg opacity-20 dark:opacity-10 floating-element"></div>
+      <div className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-25 dark:opacity-10 floating-element"></div>
+      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-green-400 to-emerald-500 transform rotate-45 opacity-20 dark:opacity-10 floating-element"></div>
+      <div className="absolute bottom-20 right-10 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-30 dark:opacity-10 floating-element"></div>
 
       {/* Section Header */}
       <div className="relative text-center mb-20 z-10 section-header">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl text-[#4e45d5] dark:text-blue-300 font-bold mb-6 transform hover:scale-105 transition-transform duration-300">
           My Achievements
         </h2>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
-        <p className="text-lg md:text-xl text-[#343d38] mt-8 max-w-2xl mx-auto font-medium">
+        <div className="w-32 h-1 bg-gradient-to-r from-[#4e45d5] via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-700 dark:to-pink-700 mx-auto rounded-full animate-pulse"></div>
+        <p className="text-lg md:text-xl text-[#343d38] dark:text-gray-200 mt-8 max-w-2xl mx-auto font-medium">
           Milestones that define my journey of continuous learning
         </p>
       </div>
@@ -147,7 +149,7 @@ const AchievementsSection = () => {
               >
                 {/* Achievement Card with 3D Effect */}
                 <div className="relative perspective-1000 cursor-pointer h-full">
-                  <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl overflow-hidden transform-gpu transition-all duration-700 hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-xl group-hover:shadow-[#4e45d5]/30 border border-white/60 h-full flex flex-col">
+                  <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-3xl overflow-hidden transform-gpu transition-all duration-700 hover:scale-105 hover:rotate-1 hover:shadow-2xl shadow-xl group-hover:shadow-[#4e45d5]/30 border border-white/60 dark:border-gray-700 h-full flex flex-col">
                     {/* Gradient Background Overlay */}
                     <div
                       className={`absolute inset-0 bg-gradient-to-br ${achievement.color} opacity-5 group-hover:opacity-15 transition-opacity duration-500`}
@@ -168,7 +170,7 @@ const AchievementsSection = () => {
                           alt={achievement.title}
                           className={`w-full h-full transition-all duration-700 group-hover:scale-110 ${
                             orientation === "portrait"
-                              ? "object-contain bg-gray-100 p-4"
+                              ? "object-contain bg-gray-100 dark:bg-gray-900 p-4"
                               : "object-cover"
                           }`}
                           style={{
@@ -220,16 +222,16 @@ const AchievementsSection = () => {
                     {/* Achievement Details Section */}
                     <div className="relative p-6 md:p-8 z-10">
                       {/* Achievement Title */}
-                      <h3 className="text-xl md:text-2xl font-bold text-[#343d38] mb-2 group-hover:text-[#4e45d5] transition-colors duration-300">
+                      <h3 className="text-xl md:text-2xl font-bold text-[#343d38] dark:text-white mb-2 group-hover:text-[#4e45d5] transition-colors duration-300">
                         {achievement.title}
                       </h3>
 
-                      <p className="text-gray-600 mb-3 text-sm">
+                      <p className="text-gray-600 dark:text-gray-300 mb-3 text-sm">
                         {achievement.issuer}
                       </p>
 
                       {/* Achievement Description */}
-                      <p className="text-gray-700 mb-4 leading-relaxed text-sm md:text-base group-hover:text-gray-800 transition-colors duration-300 line-clamp-2">
+                      <p className="text-gray-700 dark:text-gray-200 mb-4 leading-relaxed text-sm md:text-base group-hover:text-gray-800 dark:group-hover:text-gray-100 transition-colors duration-300 line-clamp-2">
                         {achievement.description}
                       </p>
 
@@ -240,13 +242,13 @@ const AchievementsSection = () => {
                           .map((skill, skillIndex) => (
                             <span
                               key={skillIndex}
-                              className="px-3 py-1 bg-gradient-to-r from-white to-gray-50 text-[#343d38] rounded-full text-xs font-semibold border border-gray-200 hover:border-[#4e45d5] transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
+                              className="px-3 py-1 bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 text-[#343d38] dark:text-gray-100 rounded-full text-xs font-semibold border border-gray-200 dark:border-gray-600 hover:border-[#4e45d5] dark:hover:border-blue-400 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
                             >
                               {skill}
                             </span>
                           ))}
                         {achievement.skills.length > 4 && (
-                          <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold">
+                          <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs font-semibold">
                             +{achievement.skills.length - 4}
                           </span>
                         )}
