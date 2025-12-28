@@ -275,28 +275,34 @@ const Navbar = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Mobile Menu Animation Timeline with enhanced effects
+    // Mobile Menu Animation Timeline - REDESIGNED
     mobileMenuTimeline.current = gsap.timeline({ paused: true })
       .to('.mobile-menu-container', {
-        duration: 0.6,
+        duration: 0.5,
         opacity: 1,
         y: 0,
         pointerEvents: 'auto',
-        ease: 'back.out(1.4)'
-      })
-      .from('.mobile-menu-item', {
-        duration: 0.5,
-        opacity: 0,
-        x: -50,
-        stagger: 0.08,
-        ease: 'back.out(2)'
-      }, "-=0.3")
-      .from('.mobile-theme-toggle', {
+        ease: 'cubic.out'
+      }, 0)
+      .to('.mobile-menu-bg', {
         duration: 0.4,
-        scale: 0,
-        rotation: 180,
-        ease: 'back.out(2)'
-      }, "-=0.2");
+        opacity: 1,
+        ease: 'power2.out'
+      }, 0)
+      .from('.mobile-menu-item', {
+        duration: 0.4,
+        opacity: 0,
+        y: -30,
+        scale: 0.9,
+        stagger: 0.06,
+        ease: 'back.out(1.5)'
+      }, 0.1)
+      .from('.mobile-theme-toggle', {
+        duration: 0.35,
+        opacity: 0,
+        scale: 0.8,
+        ease: 'back.out(1.5)'
+      }, 0.3);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -479,59 +485,73 @@ const Navbar = () => {
           </button>
         </nav>
 
-        {/* Enhanced Mobile Menu */}
-        <div className="mobile-menu-container lg:hidden fixed top-20 left-0 w-full z-40 opacity-0 translate-y-[-20px] pointer-events-none">
-          <div className="mx-4 mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-blue-100/50 dark:shadow-gray-800/50 border border-white/20 dark:border-gray-600/20 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-              <div 
-                className="shape w-full h-full bg-gradient-to-br from-blue-500 to-purple-500"
-                style={{
-                  borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
-                }}
-              />
-            </div>
+        {/* Enhanced Mobile Menu - REDESIGNED */}
+        <div className="mobile-menu-container lg:hidden fixed top-20 left-0 w-full z-60 opacity-0 -translate-y-5 pointer-events-none">
+          {/* Backdrop blur overlay */}
+          <div className="mobile-menu-bg fixed inset-0 top-20 bg-black/0 backdrop-blur-none opacity-0 z-[-1]"></div>
+          
+          {/* Menu Content */}
+          <div className="mx-3 sm:mx-4 mt-3 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl shadow-blue-200/40 dark:shadow-gray-900/60 border border-white/40 dark:border-gray-700/40 overflow-hidden relative">
+            {/* Decorative gradient top border */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400"></div>
             
-            <div className="relative p-6">
+            {/* Menu Items Container */}
+            <div className="p-4 sm:p-6 space-y-2">
               {navItems.map((item, index) => (
                 <a
                   key={index}
                   href={item.href}
                   {...(item.isDownload && { download: true })}
-                  className="mobile-menu-item group block py-4 px-6 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-gray-600 relative overflow-hidden"
+                  className="mobile-menu-item group flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-light text-gray-800 dark:text-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-colors relative overflow-hidden"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <div className="relative flex items-center justify-between">
-                    <span className="text-lg font-light text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  {/* Background accent on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-purple-400/0 group-hover:from-blue-400/10 group-hover:to-purple-400/10 transition-colors"></div>
+                  
+                  {/* Text and icon */}
+                  <div className="relative flex items-center flex-1">
+                    {/* Animated left accent line */}
+                    <div className="w-1 h-0 group-hover:h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full mr-3 transition-all duration-300"></div>
+                    <span className="relative">
                       {item.label}
                     </span>
-                    <div 
-                      className="shape w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                      style={{
-                        background: 'linear-gradient(45deg, #3b82f6, #8b5cf6)',
-                        borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
-                      }}
-                    />
                   </div>
                   
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-purple-400/0 group-hover:from-blue-400/5 group-hover:to-purple-400/5 rounded-2xl transition-all duration-300"></div>
-                  <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></div>
+                  {/* Hover arrow */}
+                  <svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 relative text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               ))}
-              
-              {/* Mobile Enhanced Theme Toggle */}
-              <div className="mobile-theme-toggle mt-6 pt-6 border-t border-gray-100 dark:border-gray-600 flex justify-center">
-                <AnimatedThemeToggle theme={theme} toggleTheme={toggleTheme} />
-              </div>
-              
-              <div className="mt-4 flex justify-center space-x-4">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 opacity-60 animate-pulse"
-                    style={{ animationDelay: `${i * 0.3}s` }}
-                  />
-                ))}
-              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mx-4 sm:mx-6"></div>
+
+            {/* Theme Toggle Section */}
+            <div className="mobile-theme-toggle p-4 sm:p-6 flex flex-col items-center space-y-4">
+              <span className="text-xs sm:text-sm font-light text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Theme
+              </span>
+              <AnimatedThemeToggle theme={theme} toggleTheme={toggleTheme} />
+            </div>
+
+            {/* Decorative dots at bottom */}
+            <div className="pb-4 sm:pb-6 flex justify-center gap-1.5">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 opacity-40"
+                  style={{
+                    animation: `pulse 2s ease-in-out ${i * 0.2}s infinite`
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>
