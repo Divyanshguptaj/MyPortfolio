@@ -14,65 +14,93 @@ const Projects = () => {
     const rightColumn = container.current.querySelector(".right-column");
     const textBlocks = gsap.utils.toArray(".project-text-content");
     const images = gsap.utils.toArray(".project-image-item");
-    let lastActiveImage = images[0]; // Keep track of the currently visible image
+    let lastActiveImage = images[0];
 
-    // --- Pin the right column ---
-    ScrollTrigger.create({
-      trigger: splitContainer,
-      start: "top top",
-      end: "bottom bottom",
-      pin: rightColumn,
-      pinSpacing: false, // Avoids extra space after pinning
-    });
-
-    // --- Set initial visibility ---
-    gsap.set(images, { opacity: 0, scale: 0.95, yPercent: 5 }); // Start all images hidden
-    gsap.set(images[0], { opacity: 1, scale: 1, yPercent: 0 }); // Make the first image visible
-
-    // --- Create triggers for each text block ---
-    textBlocks.forEach((block, index) => {
-      const q = gsap.utils.selector(block); // Create a selector for the current block
-
+    // Only apply desktop split-scroll on lg and above
+    if (window.innerWidth >= 1024) {
       ScrollTrigger.create({
-        trigger: block,
-        start: "top center", // When the top of the text block hits the center
-        end: "bottom center", // When the bottom of the text block leaves the center
-        onToggle: (self) => {
-          // When a trigger becomes active (i.e., its text block is in the center)
-          if (self.isActive) {
-            // Animate out the previously active image
-            if (lastActiveImage && lastActiveImage !== images[index]) {
-              gsap.to(lastActiveImage, {
-                opacity: 0,
-                scale: 0.95,
-                yPercent: -5,
-                duration: 0.4,
-                ease: "power3.in",
-              });
-            }
-            // Animate in the new corresponding image
-            gsap.to(images[index], {
-              opacity: 1,
-              scale: 1,
-              yPercent: 0,
-              duration: 0.5,
-              ease: "power3.out",
-            });
-            // Update the reference to the new active image
-            lastActiveImage = images[index];
+        trigger: splitContainer,
+        start: "top top",
+        end: "bottom bottom",
+        pin: rightColumn,
+        pinSpacing: false,
+      });
 
-            // Animate in the text content for the active block
-            gsap.from(q(".animated-text"), {
+      gsap.set(images, { opacity: 0, scale: 0.95, yPercent: 5 });
+      gsap.set(images[0], { opacity: 1, scale: 1, yPercent: 0 });
+
+      textBlocks.forEach((block, index) => {
+        const q = gsap.utils.selector(block);
+
+        ScrollTrigger.create({
+          trigger: block,
+          start: "top center",
+          end: "bottom center",
+          onToggle: (self) => {
+            if (self.isActive) {
+              if (lastActiveImage && lastActiveImage !== images[index]) {
+                gsap.to(lastActiveImage, {
+                  opacity: 0,
+                  scale: 0.95,
+                  yPercent: -5,
+                  duration: 0.4,
+                  ease: "power3.in",
+                });
+              }
+              gsap.to(images[index], {
+                opacity: 1,
+                scale: 1,
+                yPercent: 0,
+                duration: 0.5,
+                ease: "power3.out",
+              });
+              lastActiveImage = images[index];
+
+              gsap.from(q(".animated-text"), {
                 opacity: 0,
                 y: 30,
                 stagger: 0.1,
                 duration: 0.6,
                 ease: 'power3.out'
-            });
-          }
-        },
+              });
+            }
+          },
+        });
       });
-    });
+    } else {
+      // Mobile: Simple animations for text only (images animate inline)
+      textBlocks.forEach((block) => {
+        const q = gsap.utils.selector(block);
+        gsap.from(q(".animated-text"), {
+          scrollTrigger: {
+            trigger: block,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 0,
+          y: 30,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: 'power3.out'
+        });
+      });
+
+      // Mobile: Animate images shown inline
+      const mobileImages = gsap.utils.toArray(".mobile-project-image");
+      mobileImages.forEach((img) => {
+        gsap.from(img, {
+          scrollTrigger: {
+            trigger: img,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 0,
+          scale: 0.9,
+          duration: 0.5,
+          ease: 'power3.out'
+        });
+      });
+    }
 
     // --- Header Animation ---
     gsap.from(".section-header", {
@@ -120,11 +148,11 @@ const Projects = () => {
         {/* Left Column: Scrolling Text */}
         <div className="left-column">
           {/* Spacer to align the first item correctly */}
-          <div className="h-[20vh]"></div>
+          <div className="h-[4vh] lg:h-[20vh]"></div>
           {projects.map((project) => (
             <div
               key={project.id}
-              className="project-text-content mb-[50vh]"
+              className="project-text-content mb-12 lg:mb-[50vh]"
             >
               <span className={`animated-text inline-block mb-6 px-4 py-2 rounded-full text-sm font-bold tracking-wider uppercase bg-gradient-to-r ${project.gradient} text-white shadow-lg`}>
                 {project.category}
@@ -142,6 +170,16 @@ const Projects = () => {
                   </span>
                 ))}
               </div>
+
+              {/* Mobile Image - Shows only on mobile (lg:hidden) */}
+              <div className="mobile-project-image lg:hidden mb-8 rounded-2xl shadow-lg overflow-hidden border-4 border-white dark:border-gray-700">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+
               <div className="animated-text flex flex-col sm:flex-row gap-4">
                 <a href={project.vercelLink} target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative px-4 py-3 bg-gradient-to-r from-[#4e45d5] to-purple-600 dark:from-blue-700 dark:to-purple-900 text-white rounded-xl font-semibold text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                   🚀 Live Demo
@@ -153,7 +191,7 @@ const Projects = () => {
             </div>
           ))}
           {/* Spacer to ensure the last item can reach the center */}
-          <div className="h-[30vh]"></div>
+          <div className="h-[6vh] lg:h-[30vh]"></div>
         </div>
 
         {/* Right Column: Sticky Image */}
